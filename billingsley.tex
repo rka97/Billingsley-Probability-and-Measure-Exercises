@@ -1,0 +1,419 @@
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\setcounter{secnumdepth}{0}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,mathtools,graphicx,enumitem,hyphenat,yfonts,float}
+\usepackage{accents}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\newcommand{\dbtilde}[1]{\accentset{\approx}{#1}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\lub}{\mathrm{lub}}
+\newcommand{\g}{\mathrm{glb}}
+\newcommand{\seq}{\subseteq}
+\newcommand{\e}{\epsilon}
+\newcommand{\de}{\delta}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\es}{\emptyset}
+\newcommand{\mc}{\mathcal}
+\newcommand{\un}{\cup}
+\newcommand{\ic}{\cap}
+\newcommand{\gen}[1]{\ensuremath{\langle #1\rangle}}
+\newcommand{\spn}{\mathrm{span \ }}
+\newcommand{\dm}{\mathrm{dim \ }}
+\newcommand{\Lm}{\mathcal{L}}
+\newcommand{\nll}{\mathrm{null \ }}
+\newcommand{\rng}{\mathrm{range \ }}
+\newcommand{\dgr}{\mathrm{deg \ }}
+\newcommand{\Lim}{\lim\limits}
+\newcommand{\Sum}{\sum\limits}
+\newcommand{\Pt}{\|P\|}
+\newcommand{\dmn}{\mathrm{dom \ }}
+\newcommand{\Prod}{\prod\limits}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\ev{\langle}{\rangle}
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+\newcommand{\Beta}{\mathcal B}
+\newcommand{\Seq}{\mathrm{Seq }}
+
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\begin{document}
+
+\title{Billingsley Probability and Measure}%replace X with the appropriate number
+\author{A. K.} %if necessary, replace with your course title
+
+\maketitle
+
+\section*{1.1 Metric Space}
+\begin{exercise}{1.1.1}
+    Show that the real line is a metric space.
+\end{exercise}
+\begin{proof}
+    Defining $d(x, y) = |x-y|$. We see that by the definition of $|x|$ that $d(x, y) \geq 0$, that $d(x, y) \in \R$ and that it is finite (M1). To see M2, suppose that $|x-y| = 0$, then either $x-y = 0$ or $y - x = 0$ and in both cases $x = y$ (M2). (M3) follows directly from the definition of absolute value. For the triangle inequality, we first prove that $|z-y| \geq |z| - |y|$. Suppose that $z \geq 0$, then $|z| = z$, and
+    \[ |z| = z = (z-y) + y \leq |z-y| + |y| \rightarrow |z| - |y| \leq |z-y|. \]
+    Now suppose that $z < 0$, then $-z > 0$ and hence
+    \[ |z| = |-z| = -z = y-z + y \leq |y-z| + |y| \rightarrow |z| - |y| \leq |y-z| = |z-y|, \]
+    which completes our proof of this fact. We now prove that $|x+y| \leq |x| + |y|$,
+    \[ |x| = |x+y-y| \geq |x+y| - |y| \rightarrow |x| + |y| \geq |x+y| \]
+    Finally,
+    \[ |x-y| = |(x-z) + (z-y)| \leq |x+z| + |z-y|, \]
+    which is our desired inequality (M4).
+\end{proof}
+
+\begin{exercise}{1.1.2}
+    Does $d(x, y) = (x-y)^2$ define a metric on the set of all real numbers?
+\end{exercise}
+\begin{proof}
+    No. Take $x = 2$, $y = 0$, and $z = 1$. Then,
+    \[ d(x, y) = (2-0)^2 = 4 > d(x, z) + d(z, y) = (2-1)^2 + (1-0)^2 = 2, \]
+    We see that this function does not satisfy the triangle inequality, and hence it is not a metric.
+\end{proof}
+
+\begin{exercise}{1.1.3}
+    Show that $d(x, y) = \sqrt{ |x-y| }$ defines a metric on the set of all real numbers.
+\end{exercise}
+\begin{proof}
+    (M1), (M2), and (M3) are obvious. For (M4) then using the result of Exercise 1.1.1,
+    \[ |x-y| \leq |x-z| + |z-y| \leq |x-z| + |z-y| + 2 \sqrt{ |x-z| |z-y| } = (\sqrt{ |x-z| } + \sqrt{ |z-y | })^{2} \]
+    Taking the square roots of both sides (which preserves the inequality because both sides of the equation are nonnegative) yields (M4).
+\end{proof}
+
+\begin{exercise}{1.1.4}
+    Find all metrics on a set $X$ consisting of two points. Consisting of one point.
+\end{exercise}
+\begin{proof}
+    One point: $d(x, x) = 0$ and that's it. Two points: let $X = { x, y }$. We must have $d(x, x) = 0$ and $d(y, y) = 0$. We therefore have only one remaining value to define $d(x, y)$ (since $d(y, x) = d(x, y)$ it is one parameter, not two). We can use any nonnegative value for it: let $d(x, y) = p$, then
+    \[ d(x, y) = p \leq 0 + p = d(x, x) + d(x, y) \]
+    And similarly,
+    \[ d(x, y) = p \leq p + 0 = d(x, y) + d(y, y). \]
+\end{proof}
+
+\begin{exercise}{1.1.5}
+    Let $d$ be a metric on $X$. Determine all constants $k$ such that (i) $kd$, (ii) $d + k$ define a metric on $X$.
+\end{exercise}
+\begin{proof}
+    For $kd$ to determine a metric (M1) gives us $k \geq 0$, then (M2)-(M4) all follow given that. For (ii), note that
+    \[ k + d(x, x) = 0 \rightarrow d(x, x) = -k \geq 0 \]
+    It follows that $k = 0$, but then we have a contradiction since $dk (x, y) = 0$ even if $x \neq y$, hence there is no such $k$ (unless $X$ is a singleton).
+\end{proof}
+
+\begin{exercise}{1.1.6}
+    Show that $d$ in $1.1-6$ satisfies the triangle inequality.
+\end{exercise}
+\begin{proof}
+    (1.1-6) is about sequence spaces $l^{\infty}$ with $x \in l^{\infty}$ meaning that $x = (x_1, x_2, \ldots)$ where $x_i \in \C$ with $|x_i| \leq c_x$ where $c_x \in \R$ and varies by sequence. Then define $d$ as follows \[ d(x, y) = \sup |x_i - y_i|, \]
+    where $y \in l^{\infty}$ as well. We know that $\C$ with the Euclidean metric satisfies,
+    \[ |x_i - y_i| \leq |x_i - z_i| + |z_i - y_i|, \]
+    where $z \in l^{\infty}$. We know that the supremum of both sides exists since $|x_i - y_i| \leq |x_i| + |y_i| \leq c_x + c_y$ implies that $\{ |x_i - y_i| \}$ is a nonempty set of real numbers that is bounded above, and hence has a supremum by the completeness of the real numbers. Because taking the supremum of both sides preserves the order relation, it follows that $d(x, y) \leq \sup_{i} (|x_i - z_i| + |z_i - y_i|)$, then using the fact that 
+    \[ \sup_{i} (|x_i - z_i| + |z_i - y_i|) \leq \sup_i (|x_i - z_i|) + \sup_i (|z_i - y_i|) = d(x, z) + d(z, y) \]
+    We get that $d(x, y) \leq d(x, z) + d(z, y)$.
+\end{proof}
+
+\begin{exercise}{1.1.7}
+    If $A$ is a subspace of $l^{\infty}$ consisting of all sequences of zeros and ones, what is the induced metric on $A$?
+\end{exercise}
+\begin{proof}
+    The induced metric is the discrete metric.
+\end{proof}
+
+\begin{exercise}{1.1.8}
+    Show that another metric $\tilde{d}$ on the set $X$ in 1.1-7 (the continuous function space $C[a, b]$) is defined by
+    \[ \tilde{d}(x, y) = \int_a^b |x(t) - y(t)| \dif t \]
+\end{exercise}
+\begin{proof}
+    By the properties of integration we have nonnegativity (M1). For (M2), suppose that
+    \[ \int_a^b |x(t) - y(t)| \dif t = 0 \]
+    Let $z(t) = |x(t) - y(t)|$. Suppose there is some $t \in [a, b]$ such that $z(t) \neq 0$, then there is some $\de > 0$ such that for all $u \in [a, b]$ such that $|u-t| < \de$ we have $|z(u) - z(t)| < \frac{z(t)}{2}$, hence 
+    \[ -\frac{z(t)}{2} < z(u) - z(t) < \frac{z(t)}{2} \rightarrow z(u) > \frac{z(t)}{2} > 0 \]
+    By choosing a smaller $\de$ if necessary, assume that $[t-\de, t+\de] \seq [a, b]$. Then because $z(u) > 0$ for all $u \in (t-\de, t+\de)$, then $\int_{t-\de}^{t + \de} z(u) \dif u > 0$
+    \begin{align*}
+        0 = \int_a^b |x(u) - y(u)| \dif t = \int_a^b z(u) \dif u &= \int_a^{t-\de} z(u) \dif u + \int_{t-\de}^{t + \de} z(u) \dif u + \int_{t+\de}^{b} z(u) \dif u \\
+        &\geq 0 +  \int_{t-\de}^{t + \de} z(u) \dif u + 0 > 0
+    \end{align*}
+    And we get a contradiction. It follows that if $\int_a^b |x(t) - y(t)| \dif t = 0$ then $x = y$. (M3) follows because $\int_a^b |x(t) - y(t)| \dif t = \int_a^b |y(t) - x(t)| \dif t$ and the triangle inequality follows because integration preserves the order on functions, i.e. since for all $t \in [a, b]$ we have
+    \[ |x(t) - y(t)| \leq |x(t) - z(t)| + |z(t) - y(t)| \]
+    Taking the integral of both sides yields (M4).
+\end{proof}
+
+\begin{exercise}{1.1.9}
+    Show that $d$ in 1.1-8 (the discrete metric) is a metric.
+\end{exercise}
+\begin{proof}
+    Note that $d(x, x) = 0$ and $d(x, y) = 1$ if $x \neq y$ implies $d(x, y)$ is nonnegative, finite, and real-valued (M1). Suppose that $d(x, y) = 0$, then $x = y$ (since otherwise $d(x, y) = 1$ by the definition of $d$, hence (M2) holds as well. (M3) is obvious. And (M4) follows in a straightforward way by casework.
+\end{proof}
+
+\begin{exercise}{1.1.10}
+    (Hamming distance) Let $X$ be the set of all ordered triples of zeros and ones. Show that $X$ consists of eight elements and a metric $d$ on $X$ is defined by $d(x, y)=$number of places where $x$ and $y$ have different entries. (This space and similar spaces of $n$-tuples play a role in switching and automata theory and coding. $d(x, y)$ is called the Hamming distance between $x$ and $y$).
+\end{exercise}
+\begin{proof}
+    Let $(x_1, x_2, x_3) \in X$. There are two different choices ($0$ and $1$) for each $x_i$ ($i = 1, 2, 3$), hence there are $2^3 = 8$ different elements of $X$. (M1)-(M3) are trivial from the definition of $d$. We prove the triangle inequality. Suppose that $d(x, y) = n$, and let $d(x, z) = n_1$ and $d(z, y) = n_2$. We can convert $x$ to $y$ by first changing $n_1$ elements of $x$ to turn it into $z$ and then changing $n_2$ elements of $z$ to turn it into $y$ which would mean we have made $n_1 + n_2$ conversions, which means that the number of different elements between $x$ and $y$ is at most $n_1 + n_2$, hence $n \leq n_1 + n_2$.
+\end{proof}
+
+\begin{exercise}{1.1.11}
+    Prove (1): let $x_1, \ldots, x_n \in X$ and $d$ be a metric on $X$:
+    \[ d(x_1, x_n) \leq d(x_1, x_2) + \ldots + d(x_{n-1}, x_n). \]
+\end{exercise}
+\begin{proof}
+    The base case follows from the triangle inequaltiy. Suppose that the formula holds up to $n-1$, then
+    \[ d(x_1, x_n) \leq d(x_1, x_{n-1}) + d(x_{n-1}, x_n) \leq d(x_1, x_2) + \ldots + d(x_{n-1}, x_n). \]
+\end{proof}
+
+\begin{exercise}{1.1.12}
+    The triangle inequality has several useful consequences. For instance, using (1), show that
+    \[ |d(x, y) - d(z, w)| \leq d(x, z) + d(y, w) \]
+\end{exercise}
+\begin{proof}
+    Using the triangle inequality,
+    \begin{align*}
+        d(x, y) \leq d(x, z) + d(z, y) &\leq d(x, z) + d(z, w) + d(w, y) \\
+        d(x, y) - d(z, w) &\leq d(x, z) + d(y, w)
+    \end{align*}
+    And similarly,
+    \begin{align*}
+        d(z, w) \leq d(z, y) + d(y, w) &\leq d(z, x) + d(x, y) + d(y, w)  \\
+        d(z, w) - d(x, y) &\leq d(z, x) + d(y, w),
+    \end{align*}
+    And the claim then follows.
+\end{proof}
+
+\begin{exercise}{1.1.13}
+    Using the triangle inequality, show that
+    \[ |d(x, z) - d(y, z)| \leq d(x, y) \]
+\end{exercise}
+\begin{proof}
+    Using the triangle inequality we have,
+    \begin{align*}
+        d(x, z) & \leq d(x, y) + d(y, z) &\longrightarrow d(x, z) - d(y, z) &\leq d(x, y) \\
+        d(y, z) & \leq d(y, x) + d(x, z) &\longrightarrow d(y, z) - d(x, z) &\leq d(y, x)
+    \end{align*}
+    Combining the two inequalities we get the required claim.
+\end{proof}
+
+\begin{exercise}{1.1.14}
+    Show that (M3) and (M4) could be obtained from (M2) and
+    \[ d(x, y) \leq d(z, x) + d(z, y) \]
+\end{exercise}
+\begin{proof}
+    Let $z=y$, then
+    \[ d(x, y) \leq d(y, x) + d(y, y) = d(y, x) \]
+    Exchanging $x$ and $y$ we have,
+    \[ d(y, x) \leq d(x, y) + d(x, x) = d(x, y) \]
+    It follows that $d(x, y) = d(y, x)$ (which is (M2)) and from then (M3) follows.
+\end{proof}
+
+\begin{exercise}{1.1.15}
+    Show that the nonnegativity of a metric follows from (M2) to (M4).
+\end{exercise}
+\begin{proof}
+    Let $x, y \in X$ and $d$ be a metric on $X$. Then,
+    \[ 0 = d(x, x) \leq d(x, y) + d(y, x) = 2 d(x, y) \rightarrow 0 \leq d(x, y) \]
+\end{proof}
+
+
+\subsection*{1.2 Further Examples of Metric Spaces}
+\begin{exercise}{1.2.1}
+    Show that in 1.2-1 we can obtain another metric by replacing $\frac{1}{2^{j}}$ with $\mu_{j} > 0$ such that $\sum_{j} \mu_j$ converges.
+\end{exercise}
+\begin{proof}
+    Suppose that $\mu_j$ is defined as in the question. Let
+    \[ d(x, y) = \Sum_{j=1}^{\infty} \mu_j \frac{ |x_j - y_j| }{1 + |x_j - y_j| },  \]
+    Using the fact (proven in 1.2-1) that
+    \[ \frac{|x_j - y_j|}{1 + |x_j - y_j|} \leq \frac{|x_j - z_j|}{1 + |x_j - z_j|}  + \frac{|z_j - y_j|}{1 + |z_j - y_j|},   \]
+    then multiplying by $\mu_j$ we have,
+    \[ \mu_j \frac{|x_j - y_j|}{1 + |x_j - y_j|} \leq \mu_j \frac{|x_j - z_j|}{1 + |x_j - z_j|}  + \mu_j \frac{|z_j - y_j|}{1 + |z_j - y_j|},  \]
+    Taking the sum of both sides with respect to $j$ and noting that all series converge by the comparison test:
+    \[ \sum_{j} \mu_j \frac{|x_j - y_j|}{1 + |x_j - y_j|} \leq \sum_{j} \mu_j < \infty  \]
+    It follows that
+    \[ d(x, y) \leq d(x, z) + d(z, y). \]
+\end{proof}
+
+\begin{exercise}{1.2.2}
+    Using (6) show that the geometric mean of two positive numbers does not exceed the arithmetic mean.
+\end{exercise}
+\begin{proof}
+    Take $p = q = 2$, then $\frac{1}{p} + \frac{1}{q} =1$ and we can apply (6): let $\alpha, \beta \in [0, \infty)$. Then,
+    \[ \alpha \beta \leq \frac{\alpha^2}{2} + \frac{\beta^2}{2}   \rightarrow \frac{\alpha \beta}{2} \leq \frac{\alpha^2}{2} + \frac{\beta^2}{2} + \frac{\alpha \beta}{2} = \left ( \frac{\alpha + \beta}{2} \right)^2    \]
+    Taking the square root of both sides yields the AM-GM inequality.
+\end{proof}
+
+\begin{exercise}{1.2.3}
+    Show that the Cauchy-Shwarz inequality (11) implies
+    \[ (|x_1| + \ldots + |x_n|)^2 \leq n(|x_1|^2 + \ldots + |x_n|^2) \]
+\end{exercise}
+\begin{proof}
+    By the Cacuhy-Shwarz inequality,
+    \[ (|x_1| + \ldots + |x_n|)^2  = \left (\sum_{j=1}^{n} |x_j \cdot 1| \right)^2 \leq \left (\sum_{j=1}^{n} |x_j|^2 \right) \left ( \sum_{j=1}^{n} |1|^{2} \right) = n \left (\sum_{j=1}^{n} |x_j|^2 \right).  \]
+\end{proof}
+
+\begin{exercise}{1.2.4}
+    Find a sequence which converges to $0$, but is not in any space $l^p$ where $1 \leq p < +\infty$.
+\end{exercise}
+\begin{proof}
+    Let $x_n = \frac{1}{\ln (n+1)}$ for all $n \in \N$. Note that $\Lim_{n \to \infty} \frac{n^{\frac{1}{p}}}{\ln (n+1)} = \infty$, hence there is some $N \in \N$ such that $\frac{n^{\frac{1}{p}}}{\ln (n+1)} > 1$ for all $n \in \N$ such that $n \geq N$, hence 
+    \[ n^{\frac{1}{p}} > \ln (n+1) \Rightarrow n > (\ln (n+1))^{p} \Rightarrow \frac{1}{(\ln (n+1))^{p}} > \frac{1}{n}   \]
+    It follows that,
+    \[ \sum_{n=N}^{\infty} |x_n|^{p} = \sum_{n=N}^{\infty} \frac{1}{(\ln(n+1))^{p}} > \sum_{n=N}^{\infty} \frac{1}{n} = \infty \]
+    It follows that $\sum_{n=1}^{\infty} |x_n|^{p} $ diverges.
+\end{proof}
+
+\begin{exercise}{1.2.5}
+    Find a sequence $x$ which is in $l^{p}$ with $p > 1$ but $x \notin l^{1}$.
+\end{exercise}
+\begin{proof}
+    Let $x_n = \frac{1}{n}$ for all $n \in \N$. It's well-known that the harmonic series diverges, hence $x \notin l^{1}$. Note that,
+    \[ \sum_{n=1}^{\infty} \left | \frac{1}{n} \right|^{p} = \sum_{n=1}^{\infty} \frac{1}{n^{p}}   \]
+    Let $p \in (1, \infty)$. Define $f(x) = \frac{1}{x^{p}}$ for all $x \in [1, \infty)$. Then,
+    \[ \int_{1}^{\infty} f(x) \dif x = \int_1^{\infty} \frac{1}{x^p} \dif x = \left [ \frac{x^{-p+1}}{1-p} \right ]_{1}^{\infty} = \frac{1}{p-1} < \infty,   \]
+    Hence by the integral test this sum converges.
+\end{proof}
+
+\begin{exercise}{1.2.6}
+    The diameter $\de(A)$ of a nonempty set $A$ in a metric space $(X, d)$ is defined to be
+    \[ \de (A) = \sup_{x, y \in A} d(x, y) \]
+    A is said to be bounded if $\de(A) < \infty$. Show that $A \seq B$ implies $\de A \leq \de B$.
+\end{exercise}
+\begin{proof}
+    If $x, y \in A$ then $x, y \in B$, hence $\sup_{x, y \in A} d(x, y) \leq \sup_{x, y \in B} d(x, y)$, and the claim follows directly.
+\end{proof}
+
+\begin{exercise}{1.2.7}
+    Show that $\de A = 0$ if and only if $A$ consists of a single point.
+\end{exercise}
+\begin{proof}
+    Suppose that $\de A = 0$, then $d(x, y) \leq 0$ for all $x, y \in A$, but $d(x, y) \geq 0$ by the definition of a metric, hence $d(x, y) = 0$ for all $x, y \in A$ and by the definition of a metric again we have $x = y$ for all $x, y \in A$, hence $A$ has a single element.
+\end{proof}
+
+\begin{exercise}{1.2.8}
+    The distance $D(A, B)$ between two nonempty sets $A$ and $B$ of a metric space $(X, d)$ is defined to be
+    \[ D(A, B) = \inf_{a \in A, b \in B} d(a, b). \]
+    Show that $D$ does not define a metric on the power set of $X$. (For this reason we use another symbol, $D$, but one that still reminds us of $d$.)
+\end{exercise}
+\begin{proof}
+    $D$ is not defined on $\es \in \mc P$, hence $D$ is not even a function on the the power set of $X$. See 1.2.9 as well. We have $D(A, B) = 0$ while $A \neq B$.
+\end{proof}
+
+
+\begin{exercise}{1.2.9}
+    If $A \ic B \neq \es$, show that $D(A, B) = 0$ in Prob. 8. What about the converse?
+\end{exercise}
+\begin{proof}
+    Let $c \in A \ic B$, we have $d(c, c) = 0$ with $c \in A$ and $c \in B$, since $d(x, y) \geq 0$ for all $x, y$ it follows that $\inf_{a \in A, b \in B} d(a, b) = d(c, c) = 0$. The converse is not true. Let $X = \R$ and $d(x, y) = |x-y|$. Let $A = (0, \infty)$ and $B = (-\infty, 0)$. We see that $A \ic B = \es$. Let $\e > 0$, then let $\de = \frac{\e}{4}$ and suppose that $a \in (0, \de)$ and $b \in (-\de, 0)$, then $a \in A$ and $b \in B$ and,
+    \[ d(a, b) = |a-b| \leq |a| + |b| = 2 \de = \frac{\e}{2} < \e,   \]
+    Hence for every $\e > 0$ there is some $a, b \in A, B$ such that $d(a, b) < \e$, and since $d(a, b) \geq 0$ it follows that $\inf_{a \in A, \\ b \in B} d(a, b) = 0$.
+\end{proof}
+
+\begin{exercise}{1.2.10}
+    The distance $D(x, B)$ from a point $x$ to a non-empty subset $B$ of $(X, d)$ is defined to be
+    \[ D(x, B) = \inf_{b \in B} d(x, b) \]
+    in agreement with Prob. 8. Show that for any $x, y \in X$,
+    \[ |D(x, B) - D(y, B)| \leq d(x, y). \]
+\end{exercise}
+\begin{proof}
+    By the triangle inequality,
+    \begin{align*}
+        D(x, B) &= \inf_{b \in B} d(x, b) \leq \inf_{b \in B} (d(x, y) + d(y, b)) \\
+        &= d(x, y) + \inf_{b \in B} d(y, b) = d(x, y) + D(y, B) \\
+        D(x, B) - D(y, B) &\leq d(x, y)
+    \end{align*}
+    Exchanging $x$ and $y$ (which are arbitrary) we see
+    \[ D(y, B) - D(x, B) \leq d(y, x) = d(x, y), \]
+    and the claim follows.
+\end{proof}
+
+\begin{exercise}{1.2.11}
+    If $(X, d)$ is any metric space, show that another metric on $X$ is defined by,
+    \[ \tilde{d} (x, y) = \frac{d(x, y)}{1 + d(x, y)}  \]
+    and $X$ is bounded in the metric $\tilde{d}$.
+\end{exercise}
+\begin{proof}
+    (M1)-(M3) follow directly because $d(x, y)$ is a metric. Boundedness follows because $\tilde{d(x, y}) < 1$ for all $x, y \in X$. Let $f: \R^{+} \to \R$ be defined by $f(t) = \frac{t}{1+t}$. Note that $f$ is increasing. Let $a, b \in \R$, then since $|a+b| \leq |a| + |b|$ we have $f(|a+b|) \leq f(|a| + |b|)$. Then,
+    \begin{align*}
+        f(|a| + |b|) &= \frac{|a| + |b|}{1 + |a| + |b|} = \frac{|a|}{1 + |a| +|b|} + \frac{|b|}{1 + |a| + |b|} \\
+        &\leq \frac{|a|}{1 + |a|} + \frac{|b|}{1 + |b|} = f(|a|) + f(|b|)
+    \end{align*}
+    Hence, $f(|a+b|) \leq f(|a| + |b|) \leq f(|a|) + f(|b|)$. $|x-y| = |x-z + z-y|$. Letting $a = d(x, z)$ and $b = d(z, y)$ we get
+    \[ f(d(x, z) + d(z, y)) \leq f(d(x, z)) + f(d(z, y)).\]
+    Now since $d(x, y) \leq d(x, z) + d(z, y)$ it follows that
+    \[ \tilde{d}(x, y) = f(d(x, y)) \leq f(d(x, z)) + d(z, y) \leq f(d(x, z)) + f(d(z, y)) = \tilde{d} (x, z) + \tilde{d} (z, y). \]
+\end{proof}
+
+\begin{exercise}{1.2.12}
+    Show that the union of two bounded sets in a metric space is a bounded set. (Definition in Prob. 6)
+\end{exercise}
+\begin{proof}
+    Let $A, B$ be two bounded sets in a metric space. Let $C = A \un B$. Let $x, y \in C$. If $x, y \in A$ then $d(x, y)$ is bounded above by $\de(A)$ and similarly if $x, y \in B$ then $d(x, y)$ is bounded above by $\de B$. Suppose that $x \in A$ and $y \in B$, let $a \in A$ and $b \in B$,
+    \[ d(x, y) \leq d(x, a) + d(a, y) \leq d(x, a) + d(a, b) + d(b, y) \leq \de A + d(a, b) + \de B \]
+    It follows that $\de A + d(a, b) + \de B$ is an upper bound of $\{ d(x, y) \mid x, y \in C \}$ and hence $\de C = \sup_{x, y \in C} d(x, y) \leq \de A + d(a, b) + \de B$ and we get that $C$ is bounded in the metric space $(X, d)$.
+\end{proof}
+
+\begin{exercise}{1.2.13}
+    (Product of metric spaces) The Cartesian product $X = X_1 \times X_2$ of two metric spaces $(X_1, d_1)$ and $(X, d_2)$ can be made into a metric space $(X, d)$ in many ways. For instance, show that a metric d is defined by
+    \[ d(x, y) = d_1 (x_1, y_1) + d_2 (x_2, y_2) \]
+    where $x = (x_1, x_2)$ and $y = (y_1, y_2)$.
+\end{exercise}
+\begin{proof}
+    (M1)-(M3) are trivial. To prove the triangle inequality let $z = (z_1, z_2)$, then
+    \begin{align*}
+        d(x, y) = d_1 (x_1, y_1) + d_2 (x_2, y_2) &\leq d_1 (x_1, z_1) + d(z_1, y_1) + d_2 (x_2, z_2) + d(z_2, y_2) \\
+        &= d_1 (x_1, z_1) + d_2 (x_1, z_2) + d(z_1, y_1) + d(z_2, y_2) \\
+        &= d(x, z) + d(y, z).
+    \end{align*}
+\end{proof}
+
+\begin{exercise}{1.2.14}
+    Show that another metric on $X$ in Prob. 13 is defined by
+    \[ \tilde{d} (x, y) = \sqrt{d_1 (x_1, y_2)^2 + d_2 (x_2, y_2)^2} \]
+\end{exercise}
+\begin{proof}
+    (M1)-(M3) are trivial. (M4) follows in a straight-forward way from the Cauchy-Schwarz inequality.
+\end{proof}
+
+\begin{exercise}{1.2.15}
+    Show that a third metric on $X$ in Prob. 13 is defined by
+    \[ \dbtilde{d} (x, y) = \max [ d_1 (x_1, y_1), d_2 (x_2, y_2) ]. \]
+\end{exercise}
+\begin{proof}
+    (M1)-(M3) are trivial. To prove (M4) note that,
+    \begin{align*}
+        d_1 (x_1, y_1) &\leq d_1 (x_1, z_1) + d_1 (z_1, y_1) \\
+        &\leq \max [ d_1 (x_1, z_1), d_2 (x_2, z_2) ] + \max [ d_1 (z_1, y_1), d_2 (z_2, y_2) ] \\
+        d_2 (x_2, y_2) &\leq d_2 (x_2, z_2) + d_2 (z_2, u_2) \\
+        &\leq \max [ d_1 (x_1, z_1), d_2 (x_2, z_2) ] + \max [ d_1 (z_1, y_1), d_2 (z_2, y_2) ]
+    \end{align*}
+    It follows that,
+    \begin{align*}
+        \max [ d_1 (x_1, y_1), d_2 (x_2, y_2) ] &\leq \max [ d_1 (x_1, z_1), d_2 (x_2, z_2) ] + \max [ d_1 (z_1, y_1), d_2 (z_2, y_2) ] \\
+        &= \dbtilde{d}(x, z) + \dbtilde{d} (z, y).
+    \end{align*}
+
+\end{proof}
+
+
+
+
+
+\end{document}
