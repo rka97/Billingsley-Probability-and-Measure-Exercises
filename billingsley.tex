@@ -5,20 +5,28 @@
 \documentclass[12pt]{article}
 \setcounter{secnumdepth}{0}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amsthm,amssymb,mathtools,graphicx,enumitem,hyphenat,yfonts,float}
-\usepackage{accents}
+\usepackage{amsmath,amsthm,amssymb,mathtools,graphicx,enumitem,hyphenat,float}
+\usepackage{accents, mathabx}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \newcommand{\dbtilde}[1]{\accentset{\approx}{#1}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\F}{\mathbb{F}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\lc}{\mathop l}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\lub}{\mathrm{lub}}
 \newcommand{\g}{\mathrm{glb}}
 \newcommand{\seq}{\subseteq}
 \newcommand{\e}{\epsilon}
+\newcommand{\la}{\lambda}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
 \newcommand{\de}{\delta}
 \newcommand{\mbf}{\mathbf}
 \newcommand{\es}{\emptyset}
@@ -45,6 +53,10 @@
 
 \newenvironment{theorem}[2][Theorem]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{defn}[2][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{rmrk}[2][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
 \newenvironment{lemma}[2][Lemma]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
 \newenvironment{exercise}[2][Exercise]{\begin{trivlist}
@@ -68,349 +80,281 @@
 
 \maketitle
 
-\section*{1.1 Metric Space}
-\begin{exercise}{1.1.1}
-    Show that the real line is a metric space.
+\section*{Chapter 1. Probability}
+\subsection*{1. Borel's Normal Number Theorem}
+\begin{exercise}{1.1}
+    \begin{enumerate}
+        \item Show that a discrete probability space (see Example 2.8 for the formal definition) cannot contain an infinite sequence $A_1, A_2, \ldots$ of independent events each of probability $\frac{1}{2}$. Since $A_n$ could be identified with heads on the $n$th toss of a coin, the existence of such a sequence would make this section superflouous.
+        \item Suppose that $0 \leq p_n \leq 1$ and put $\alpha_n = \min \{ p_n, 1 - p_n \}$. Show that if $\sum_n \alpha_n$ diverges, then no discrete probability space can contain independent events $A_1, A_n, \ldots$ such that $A_n$ has probability $p_n$.
+    \end{enumerate}
 \end{exercise}
 \begin{proof}
-    Defining $d(x, y) = |x-y|$. We see that by the definition of $|x|$ that $d(x, y) \geq 0$, that $d(x, y) \in \R$ and that it is finite (M1). To see M2, suppose that $|x-y| = 0$, then either $x-y = 0$ or $y - x = 0$ and in both cases $x = y$ (M2). (M3) follows directly from the definition of absolute value. For the triangle inequality, we first prove that $|z-y| \geq |z| - |y|$. Suppose that $z \geq 0$, then $|z| = z$, and
-    \[ |z| = z = (z-y) + y \leq |z-y| + |y| \rightarrow |z| - |y| \leq |z-y|. \]
-    Now suppose that $z < 0$, then $-z > 0$ and hence
-    \[ |z| = |-z| = -z = y-z + y \leq |y-z| + |y| \rightarrow |z| - |y| \leq |y-z| = |z-y|, \]
-    which completes our proof of this fact. We now prove that $|x+y| \leq |x| + |y|$,
-    \[ |x| = |x+y-y| \geq |x+y| - |y| \rightarrow |x| + |y| \geq |x+y| \]
-    Finally,
-    \[ |x-y| = |(x-z) + (z-y)| \leq |x+z| + |z-y|, \]
-    which is our desired inequality (M4).
+    TBD.
 \end{proof}
 
-\begin{exercise}{1.1.2}
-    Does $d(x, y) = (x-y)^2$ define a metric on the set of all real numbers?
+\begin{exercise}{1.2}
+    Show that $N$ and $N^c$ are dense in $(0, 1]$.
 \end{exercise}
 \begin{proof}
-    No. Take $x = 2$, $y = 0$, and $z = 1$. Then,
-    \[ d(x, y) = (2-0)^2 = 4 > d(x, z) + d(z, y) = (2-1)^2 + (1-0)^2 = 2, \]
-    We see that this function does not satisfy the triangle inequality, and hence it is not a metric.
-\end{proof}
-
-\begin{exercise}{1.1.3}
-    Show that $d(x, y) = \sqrt{ |x-y| }$ defines a metric on the set of all real numbers.
-\end{exercise}
-\begin{proof}
-    (M1), (M2), and (M3) are obvious. For (M4) then using the result of Exercise 1.1.1,
-    \[ |x-y| \leq |x-z| + |z-y| \leq |x-z| + |z-y| + 2 \sqrt{ |x-z| |z-y| } = (\sqrt{ |x-z| } + \sqrt{ |z-y | })^{2} \]
-    Taking the square roots of both sides (which preserves the inequality because both sides of the equation are nonnegative) yields (M4).
-\end{proof}
-
-\begin{exercise}{1.1.4}
-    Find all metrics on a set $X$ consisting of two points. Consisting of one point.
-\end{exercise}
-\begin{proof}
-    One point: $d(x, x) = 0$ and that's it. Two points: let $X = { x, y }$. We must have $d(x, x) = 0$ and $d(y, y) = 0$. We therefore have only one remaining value to define $d(x, y)$ (since $d(y, x) = d(x, y)$ it is one parameter, not two). We can use any nonnegative value for it: let $d(x, y) = p$, then
-    \[ d(x, y) = p \leq 0 + p = d(x, x) + d(x, y) \]
-    And similarly,
-    \[ d(x, y) = p \leq p + 0 = d(x, y) + d(y, y). \]
-\end{proof}
-
-\begin{exercise}{1.1.5}
-    Let $d$ be a metric on $X$. Determine all constants $k$ such that (i) $kd$, (ii) $d + k$ define a metric on $X$.
-\end{exercise}
-\begin{proof}
-    For $kd$ to determine a metric (M1) gives us $k \geq 0$, then (M2)-(M4) all follow given that. For (ii), note that
-    \[ k + d(x, x) = 0 \rightarrow d(x, x) = -k \geq 0 \]
-    It follows that $k = 0$, but then we have a contradiction since $dk (x, y) = 0$ even if $x \neq y$, hence there is no such $k$ (unless $X$ is a singleton).
-\end{proof}
-
-\begin{exercise}{1.1.6}
-    Show that $d$ in $1.1-6$ satisfies the triangle inequality.
-\end{exercise}
-\begin{proof}
-    (1.1-6) is about sequence spaces $l^{\infty}$ with $x \in l^{\infty}$ meaning that $x = (x_1, x_2, \ldots)$ where $x_i \in \C$ with $|x_i| \leq c_x$ where $c_x \in \R$ and varies by sequence. Then define $d$ as follows \[ d(x, y) = \sup |x_i - y_i|, \]
-    where $y \in l^{\infty}$ as well. We know that $\C$ with the Euclidean metric satisfies,
-    \[ |x_i - y_i| \leq |x_i - z_i| + |z_i - y_i|, \]
-    where $z \in l^{\infty}$. We know that the supremum of both sides exists since $|x_i - y_i| \leq |x_i| + |y_i| \leq c_x + c_y$ implies that $\{ |x_i - y_i| \}$ is a nonempty set of real numbers that is bounded above, and hence has a supremum by the completeness of the real numbers. Because taking the supremum of both sides preserves the order relation, it follows that $d(x, y) \leq \sup_{i} (|x_i - z_i| + |z_i - y_i|)$, then using the fact that 
-    \[ \sup_{i} (|x_i - z_i| + |z_i - y_i|) \leq \sup_i (|x_i - z_i|) + \sup_i (|z_i - y_i|) = d(x, z) + d(z, y) \]
-    We get that $d(x, y) \leq d(x, z) + d(z, y)$.
-\end{proof}
-
-\begin{exercise}{1.1.7}
-    If $A$ is a subspace of $l^{\infty}$ consisting of all sequences of zeros and ones, what is the induced metric on $A$?
-\end{exercise}
-\begin{proof}
-    The induced metric is the discrete metric.
-\end{proof}
-
-\begin{exercise}{1.1.8}
-    Show that another metric $\tilde{d}$ on the set $X$ in 1.1-7 (the continuous function space $C[a, b]$) is defined by
-    \[ \tilde{d}(x, y) = \int_a^b |x(t) - y(t)| \dif t \]
-\end{exercise}
-\begin{proof}
-    By the properties of integration we have nonnegativity (M1). For (M2), suppose that
-    \[ \int_a^b |x(t) - y(t)| \dif t = 0 \]
-    Let $z(t) = |x(t) - y(t)|$. Suppose there is some $t \in [a, b]$ such that $z(t) \neq 0$, then there is some $\de > 0$ such that for all $u \in [a, b]$ such that $|u-t| < \de$ we have $|z(u) - z(t)| < \frac{z(t)}{2}$, hence 
-    \[ -\frac{z(t)}{2} < z(u) - z(t) < \frac{z(t)}{2} \rightarrow z(u) > \frac{z(t)}{2} > 0 \]
-    By choosing a smaller $\de$ if necessary, assume that $[t-\de, t+\de] \seq [a, b]$. Then because $z(u) > 0$ for all $u \in (t-\de, t+\de)$, then $\int_{t-\de}^{t + \de} z(u) \dif u > 0$
+    A set $A$ is dense in a set $B$ if $B \seq A^{-}$ where $A^{-}$ is the closure of $A$. The closure of $A$ is defined as the set of all $x$ such that there there is some sequence $\{ x_{n} \}_{n=1}^{\infty}$ in $A$ such that $\lim_{n \to \infty} x_n = x$. Define \[ N = \left [ \omega \in [0, 1) \mid \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^{n} d_i (\omega) = \frac{1}{2} \right ] \]
+    Let $x \in (0, 1]$. Define $\{ x_{n} \}_{n=1}^{\infty}$ as follows: Let the first $n$ digits of $x_n$ (for $n > 1$) be equal to the first $n$ digits in the binary expansion of $x$. Suppose there are $m$ ones and $(n-m)$ zeros in these digits. If $m = n-m$ then letting the rest of the binary expansion alternate between 0 and 1 we'd have $x_n \in N$. If $m > n-m$, add $m-(n-m+1) = 2m - n - 1$ zeros to the binary expansion of $x_n$, then note that
     \begin{align*}
-        0 = \int_a^b |x(u) - y(u)| \dif t = \int_a^b z(u) \dif u &= \int_a^{t-\de} z(u) \dif u + \int_{t-\de}^{t + \de} z(u) \dif u + \int_{t+\de}^{b} z(u) \dif u \\
-        &\geq 0 +  \int_{t-\de}^{t + \de} z(u) \dif u + 0 > 0
+        \frac{1}{2m} \sum_{i=1}^{2m} d_i (x_n) &= \frac{1}{2m} \left (\sum_{i=1}^{n} d_i (x_n) + \sum_{n+1}^{2m} d_i (x_n) \right) \\
+        &= \frac{1}{2m} \left ( m + (2m-(n+1) - (2m-n-1)) \right ) = \frac{1}{2}
     \end{align*}
-    And we get a contradiction. It follows that if $\int_a^b |x(t) - y(t)| \dif t = 0$ then $x = y$. (M3) follows because $\int_a^b |x(t) - y(t)| \dif t = \int_a^b |y(t) - x(t)| \dif t$ and the triangle inequality follows because integration preserves the order on functions, i.e. since for all $t \in [a, b]$ we have
-    \[ |x(t) - y(t)| \leq |x(t) - z(t)| + |z(t) - y(t)| \]
-    Taking the integral of both sides yields (M4).
-\end{proof}
-
-\begin{exercise}{1.1.9}
-    Show that $d$ in 1.1-8 (the discrete metric) is a metric.
-\end{exercise}
-\begin{proof}
-    Note that $d(x, x) = 0$ and $d(x, y) = 1$ if $x \neq y$ implies $d(x, y)$ is nonnegative, finite, and real-valued (M1). Suppose that $d(x, y) = 0$, then $x = y$ (since otherwise $d(x, y) = 1$ by the definition of $d$, hence (M2) holds as well. (M3) is obvious. And (M4) follows in a straightforward way by casework.
-\end{proof}
-
-\begin{exercise}{1.1.10}
-    (Hamming distance) Let $X$ be the set of all ordered triples of zeros and ones. Show that $X$ consists of eight elements and a metric $d$ on $X$ is defined by $d(x, y)=$number of places where $x$ and $y$ have different entries. (This space and similar spaces of $n$-tuples play a role in switching and automata theory and coding. $d(x, y)$ is called the Hamming distance between $x$ and $y$).
-\end{exercise}
-\begin{proof}
-    Let $(x_1, x_2, x_3) \in X$. There are two different choices ($0$ and $1$) for each $x_i$ ($i = 1, 2, 3$), hence there are $2^3 = 8$ different elements of $X$. (M1)-(M3) are trivial from the definition of $d$. We prove the triangle inequality. Suppose that $d(x, y) = n$, and let $d(x, z) = n_1$ and $d(z, y) = n_2$. We can convert $x$ to $y$ by first changing $n_1$ elements of $x$ to turn it into $z$ and then changing $n_2$ elements of $z$ to turn it into $y$ which would mean we have made $n_1 + n_2$ conversions, which means that the number of different elements between $x$ and $y$ is at most $n_1 + n_2$, hence $n \leq n_1 + n_2$.
-\end{proof}
-
-\begin{exercise}{1.1.11}
-    Prove (1): let $x_1, \ldots, x_n \in X$ and $d$ be a metric on $X$:
-    \[ d(x_1, x_n) \leq d(x_1, x_2) + \ldots + d(x_{n-1}, x_n). \]
-\end{exercise}
-\begin{proof}
-    The base case follows from the triangle inequaltiy. Suppose that the formula holds up to $n-1$, then
-    \[ d(x_1, x_n) \leq d(x_1, x_{n-1}) + d(x_{n-1}, x_n) \leq d(x_1, x_2) + \ldots + d(x_{n-1}, x_n). \]
-\end{proof}
-
-\begin{exercise}{1.1.12}
-    The triangle inequality has several useful consequences. For instance, using (1), show that
-    \[ |d(x, y) - d(z, w)| \leq d(x, z) + d(y, w) \]
-\end{exercise}
-\begin{proof}
-    Using the triangle inequality,
+    Letting the rest of the binary expansion alternate between $0$ and $1$ we'd have $x_n \in N$. A similar methodology is used when $m < n-m$. Hence $x_n \in N$. Suppose that $\e > 0$. Because $\lim_{n \to \infty} 2^{-n} = 0$, it follows that there is some $N \in \N$ such that for all $n \geq N$ we have $2^{-n} < \frac{\e}{2}$. Let $n \in \N$ such that $n \geq N$, note that $x_n$ and $x$ share the same $N$ digits in their binary expansions. It follows that
     \begin{align*}
-        d(x, y) \leq d(x, z) + d(z, y) &\leq d(x, z) + d(z, w) + d(w, y) \\
-        d(x, y) - d(z, w) &\leq d(x, z) + d(y, w)
+        |x-x_n| &= \left | \sum_{i=N+1}^{\infty} 2^{-i}  (d_i (x) - d_i(x_n))\right | \leq \sum_{i=N+1}^{\infty} |d_i (x) - d_i (x_n)| 2^{-i} \\
+        &\leq \sum_{i=N+1}^{\infty} 2^{-i} (2) \leq 2 \sum_{i=n+1}^{\infty} 2^{-i} = 2(2^{-N}) < 2 \left (\frac{\e}{2} \right) = \e
     \end{align*}
-    And similarly,
-    \begin{align*}
-        d(z, w) \leq d(z, y) + d(y, w) &\leq d(z, x) + d(x, y) + d(y, w)  \\
-        d(z, w) - d(x, y) &\leq d(z, x) + d(y, w),
-    \end{align*}
-    And the claim then follows.
+    Hence $\Lim_{n \to \infty} x_n = x$. It follows that $x \in N^{-}$, and because $x$ was arbitrary we have $(0, 1] \seq N^{-}$ and we see that $N$ is dense in $(0, 1]$. A similar proof can be constructed for $N^{c}$ and the details are ommitted.
 \end{proof}
 
-\begin{exercise}{1.1.13}
-    Using the triangle inequality, show that
-    \[ |d(x, z) - d(y, z)| \leq d(x, y) \]
+\begin{exercise}{1.3}
+    Define a set $A$ to be trifling if for each $\e$ there exists a finite sequence of intervals $I_k$ satisfying (1.22) and (1.23).
+    \[ A \seq \bigcup_{k} I_k \ (1.22) \text { and } \sum_{k} |I_k| < \e. \ (1.23) \]
+    This definition and the definition of neglibility apply as they stand to all sets on the real line, not just to subsets of $(0, 1]$.
+    \begin{enumerate}
+        \item Show that a trifling set is negligible.
+        \item Show that the closure of a trifling set is also trifling.
+        \item Find a bounded negligible set that is not trifling.
+        \item Show that the closure of a negligible set may not be negligible.
+        \item Show that finite unions of trifling sets but that this can fail for countable unions.
+    \end{enumerate}
 \end{exercise}
 \begin{proof}
-    Using the triangle inequality we have,
-    \begin{align*}
-        d(x, z) & \leq d(x, y) + d(y, z) &\longrightarrow d(x, z) - d(y, z) &\leq d(x, y) \\
-        d(y, z) & \leq d(y, x) + d(x, z) &\longrightarrow d(y, z) - d(x, z) &\leq d(y, x)
-    \end{align*}
-    Combining the two inequalities we get the required claim.
+    (1) Suppose that a set $A$ is trifling. Suppose that $\e > 0$. Because $A$ is triffling, there is a sequence $I_1, \ldots, I_n$ of intervals such that $A \seq \un_{k=1}^{n} I_k$ and $\sum_{k=1}^{n} |I_k| < \frac{\e}{2}$. Let $I_{k} = (0, \frac{\e}{2^{k}})$ for all $k > n$. Then obviously $A \seq \un_{k} I_k$ and,
+    \[ \sum_{k=1}^{\infty} |I_k| = \sum_{k=1}^{n} |I_k| + \sum_{k=n+1}^{\infty} |I_k| < \frac{\e}{2}  + \sum_{k=n+1}^{\infty} \frac{\e}{2^{k}} = \frac{\e}{2} + \frac{\e}{2^{n}}  \leq \frac{\e}{2} + \frac{\e}{2} = \e    \]
+    Hence $A$ is negligible. \\
+    (2) Note that $A$ is bounded since it is a subset of the union of a finite number of bounded sets. 
 \end{proof}
 
-\begin{exercise}{1.1.14}
-    Show that (M3) and (M4) could be obtained from (M2) and
-    \[ d(x, y) \leq d(z, x) + d(z, y) \]
+\pagebreak
+\subsection*{2. Probability Measures}
+\begin{defn}{1}
+    Let $\Omega$ be a nonempty space. A class $\mc F$ of subsets of $\Omega$ is called a field if:
+    \begin{enumerate}
+        \item $\Omega \in \F$
+        \item $A \in \F$ implies $A^c \in \F$
+        \item $A, B \in \mc \F$ implies $A \un B \in \F$
+    \end{enumerate}
+    A set in a given class $\F$ is said to be measurable $\F$ or an $\F-$set. A $\sigma$ field is one in which (3) is replaced by the union of a countable number of sets.
+\end{defn}
+
+\begin{defn}{2}
+    Let $\mc A$ be a field. The $\sigma$-field generated by $\mc A$, denoted $\sigma (\mc A)$ is the intersection of all $\sigma$-fields containing $\mc A$.
+\end{defn}
+
+\begin{rmrk}{3}
+    $\sigma \mc A$ satisfies:
+    \begin{enumerate}
+        \item $\A \in \sigma \A$.
+        \item $\sigma A$ is a sigma-field
+        \item If $\A \in \mc G$ and $\mc G$ is a $\sigma$-field, then $\sigma \A \seq \mc G$.
+    \end{enumerate}
+\end{rmrk}
+
+
+\begin{defn}{4}
+    A set function is a real-value function defined on some class of subsets of a space $\Omega$.
+\end{defn}
+
+\begin{defn}{5}
+    A set function $P$ on a field $\F$ is a probability measure if:
+    \begin{enumerate}
+        \item $0 \leq P(A) \leq 1$ for $A \in \mc F$.
+        \item $P(\es) = 0$, $P(\Omega) = 1$
+        \item If $(A_i)$ is a disjoint sequence of sets in $\F$ and if $\bigcup_{k=1}^{\infty} A_k \in \F$, then
+        \[ P \left ( \bigcup_{k=1}^{\infty} A_k \right) = \sum_{k=1}^{\infty} P(A_k) \]
+    \end{enumerate}
+    The tripe $(\Omega, \F, P)$ is called a probability measure space or a probabiltiy space.
+\end{defn}
+
+\begin{defn}{6}
+    A support of a probability measure $P$ is any $A \in \F$ for which $P(A) = 1$.
+\end{defn}
+
+\begin{defn}{9}
+    A discrete probability space is a space $(\Omega, \F, P)$ in which $\Omega$ is countable, $\F = \mc P (\Omega)$ and there is a nonnegative function $p: \Omega \to \R$ such that $\sum_{w \in \Omega} p(w) = 1$ and $P(A) = \sum_{\omega \in \A} p(\omega)$.
+\end{defn}
+
+\begin{defn}{10}
+    A probability measure $P$ is discrete if there exist finitely or countably many points $\omega_k$ and masses $m_k$ such that $P(A) = \sum_{\omega_k \in A} m_k$ for $A \in \F$, i.e., $P(A) = \sum_{k} m_k I_A (\omega_k)$.
+\end{defn}
+
+\begin{rmrk}{11}
+    If $P$ is a probability measure, then
+    \begin{enumerate}
+        \item $P(A) \leq P(B)$ if $A \seq B$.
+        \item $P(A^c) = 1 - P(A)$.
+        \item $P(A \un B) = P(A) + P(B) - P(A \ic B)$
+        \item 
+        \begin{align*}
+            P\left ( \bigcup_{k=1}^{n} A_k \right) &= \sum_{i} P(A_i) - \sum_{i < j} P(A_i \ic A_j) \\
+            &+ \sum_{i < j < k} P(A_i \ic A_j \ic A_k) + \ldots + (-1)^{n+1} P(A_1 \ic \cdots \ic A_n).
+        \end{align*}
+        \item For any sequence $A_1, A_2, \ldots$ of sets in $\mc \F$, $P( \bigcup_{k=1}^{n} A_k) \leq \sum_{k=1}^{n} P(A_k)$. (Boole's inequality)
+    \end{enumerate}
+\end{rmrk}
+
+\begin{theorem}{2.1}
+    Let $P$ be a probability measure on a field $\mc F$.
+    \begin{enumerate}
+        \item Continuity from below: If $A_n$ and $A$ lie in $\F$ and $A_n \uparrow A$, then $P(A_n) \uparrow P(A)$.
+        \item Continuity from above: If $A_n$ and $A$ lie in $\F$ and $A_n \downarrow A$, then $P(A_n) \downarrow P(A)$.
+        \item Countable subadditivity: If $A_1, A_2, \ldots$ and $\bigcup_{k=1}^{\infty} A_k$ lie in $\F$ (they need not be disjoint), then
+        \[ P \left ( \bigcup_{k=1}^{\infty} A_k \right) \leq \sum_{k=1}^{\infty} P(A_k) \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{defn}{12}
+    Let $\J$ be the class of subintervals $(a, b]$ of $(0, 1]$ and define $\lambda (I) = |I| = b - a$, regard $\es$ as an element of $\J$ of length $0$. Let $A = \bigcup_{i=1}^{n} I_i$ be a finite disjoint union of sets in $\J$ (the set of all such sets is called $\B_0$). Then define \[ \lambda (A) = \sum_{i=1}^{n} \lambda(I_i), \]
+    Then the last equation defines a set function $\lambda$ on $\B_0$ called the Lebesgue measure.
+\end{defn}
+
+\begin{theorem}{2.2}
+    Lebesgue measure $\lambda$ is a (countably additive) probability measure on the field $\B_0$.
+\end{theorem}
+
+\begin{defn}{13}
+    Let $S$ be a finite set of points. Let $\Om = S^{\infty}$ be the space of all infinite sequence
+    \[ \om = (z_1 (\om), z_2 (\om), \ldots) \]
+    be elements of $S$, where $z_k (\om) \in \S$ for all $\om \in S^{\infty}$ and $k \geq 1$.
+\end{defn}
+
+\begin{rmrk}{14}
+    The space $S^{\infty}$ is an infinite-dimensional Cartesian product, each $z_k: S^{\infty} \to S$ is a coordinate function or natural projection. Let $S^{n} = S \times \cdots \times S$ n times.
+\end{rmrk}
+
+\begin{defn}{15}
+    A cylinder of rank $n$ is a set of the form
+    \[ A = [ \om : (z_1 (\om), \ldots, z_n (\om)) \in H] \]
+    where $H \seq S^n$. A thin cylinder is one in which $H$ is a singleton. Let $\lc_0$ be the class of cylinders of all ranks.
+\end{defn}
+
+\begin{rmrk}{16}
+    $\lc_0$ is a field.
+\end{rmrk}
+
+
+\begin{defn}{17}
+    Let $p_u, u \in S$, be probabilities on $S$ (nonnegative and summing up to 1). Define $P$ on $\lc_0$ this way: For a cylinder $A$ of rank $n$ taken,
+    \[ P(A) = \sum_{H} p_{u_1} \cdots p_{u_n} \]
+    the sum extending over all the sequences $(u_1, \ldots, u_n)$ in $H$, where $H \seq S^n$ is from the definition of $A$. As a special case for a thin cylinder,
+    \[ P[\om : (z_1 (\om), \ldots, z_n (\om)) = (u_1, \ldots, u_n)] = p_{u_1} \cdots p_{u_n} \]
+    Because of the products on the right, $P$ is called a \emph{product measure}. (straight forward to prove it is a probability measure using Theorem 2.3)
+\end{defn}
+
+\begin{theorem}{2.3}
+    Every finitely additive probability measure on the field $\lc_0$ of cylinders in $S^{\infty}$ is in fact countably additive.
+\end{theorem}
+
+\begin{lemma}{18}
+    If $P$ is a finitely probability additive measure such that $A_n \downarrow \es$ for sets $A_n \in \F$ implies $P(A_n) \downarrow 0$, then $P$ is a countably additive probability measure.
+\end{lemma}
+
+\begin{lemma}{19}
+    If $A_n \downarrow A$ where the $A_n$ are nonempty cylinders, then $A$ is nonempty.
+\end{lemma}
+
+\begin{rmrk}{20}
+    Let $\lc$ be the $\sigma$-field in $S^{\infty}$ generated by $\lc_0$. By Section 3, the probabilty measure $P$ defined on $\lc_0$ extends to $\lc$. The term product measure, properly speaking, applies to the extended $P$.
+\end{rmrk}
+
+\hrulefill
+
+\begin{exercise}{2.2}
+    Let $A_1, \ldots, A_n$ be arbitrary events and put $U_k = \bigcup \left ( A_{i_1} \ic \cdots \ic A_{i_k} \right )$ and $I_k = \bigcap \left ( A_{i_1} \un \cdots \un A_{i_k} \right )$ where the union and intersection extend over all the k-tuples satisfying $1 \leq i_1 < \cdots < i_k \leq n$. Show that $U_k = I_{n-k+1}$.
 \end{exercise}
 \begin{proof}
-    Let $z=y$, then
-    \[ d(x, y) \leq d(y, x) + d(y, y) = d(y, x) \]
-    Exchanging $x$ and $y$ we have,
-    \[ d(y, x) \leq d(x, y) + d(x, x) = d(x, y) \]
-    It follows that $d(x, y) = d(y, x)$ (which is (M2)) and from then (M3) follows.
+    Suppose without loss of generality that $k \leq n-k+1$, let $\om \in U_k$, then there is a finite sequence $(i_1, \ldots, i_k)$ such that $\om \in A_{i_t}$ for $1 \leq t \leq k$, let $(j_t)$ be a finite sequence of length $n-k+1$ such that $1 \leq j_1 < \cdots < j_{n-k+1} \leq n$, then we note that it is impossible to choose such a sequence without choosing any of the $i_t$, since we have $(n-k+1)$ holes to fill and (if we try not to choose any of the $i_t$), $n-k$ numbers. It follows that for any such sequence we have $\om \in \bigcup_{t=1}^{n-k+1} A_{j_t}$ and hence $\om \in I_{n-k+1}$, it follows that $U_k \seq I_{n-k+1}$. \\
+    Suppose that $\om \in I_{n-k+1}$, then there are at least $k$ distinct sets $A_m$ such that $\om \in A_m$ since if we suppose that they are less than $k$ such sets, then we can choose $n-(k-1)$ sets from $A_1, \ldots, A_n$, sort them in increasing order and index them by $(j_t)$ then we have $\om \notin A_{j_t}$ for $t \in \{ 1, \ldots, n-k+1 \}$ which is a contradiction to $\om \in I_{n-k+1}$. It follows that there are $k$ distinct sets $A_m$ such that $\om \in A_m$, sort them in increasing order of $m$ and index them by $i_1, \ldots, i_{k}$, then $\om \in (A_{i_1} \ic \cdots \ic A_{i_k})$ and as such $\om \in U_k$. It follows that $I_{n-k+1} \seq U_k$ and therefore $I_{n-k+1} = U_k$.
 \end{proof}
 
-\begin{exercise}{1.1.15}
-    Show that the nonnegativity of a metric follows from (M2) to (M4).
+\begin{exercise}{2.3}
+    \begin{enumerate}
+        \item Suppose that $\Omega \in \F$ and that $A, B \in \F$ implies $A - B \in \F$. Show that $\F$ is a field.
+        \item Show that $\Om \in \F$ and that $\F$ is closed under the formation of complements and finite disjoint unions. Show that $\F$ need not be a field.
+    \end{enumerate}
 \end{exercise}
 \begin{proof}
-    Let $x, y \in X$ and $d$ be a metric on $X$. Then,
-    \[ 0 = d(x, x) \leq d(x, y) + d(y, x) = 2 d(x, y) \rightarrow 0 \leq d(x, y) \]
+    \begin{enumerate}
+        \item \begin{enumerate}
+            \item Note that $\Om \in \F$ (given) and since $\Om \in \F$ implies $\Om - \Om = \es \in \F$ we have $\es \in \F$.
+            \item Let $A \in \F$, then $A^{c} = \Om - A \in \F$.
+            \item Let $A, B \in \F$, then because $A^{c} \in \F$ we have
+            \[ (A \un B)^{c} = A^{c} - B \in \F \]
+            And then $A \un B = ((A \un B)^{c})^{c} \in \F$.
+        \end{enumerate} 
+        \item Let $\Om = \{ 1, 2, 3, 4 \}$ and let 
+        \[ A = \{ \es, \{ 1, 2 \}, \{ 2, 3 \}, \{ 3, 4 \}, \{ 1, 4 \}, \{ 1, 2, 3, 4 \} \} \]
+        Then $A$ is closed under complements and disjoint unions, but not unions since \[ \{ 1, 2 \} \un \{ 2, 3 \} = \{ 1, 2, 3 \} \notin A \]
+        It follows that $A$ is not a field.
+    \end{enumerate}
 \end{proof}
 
-
-\subsection*{1.2 Further Examples of Metric Spaces}
-\begin{exercise}{1.2.1}
-    Show that in 1.2-1 we can obtain another metric by replacing $\frac{1}{2^{j}}$ with $\mu_{j} > 0$ such that $\sum_{j} \mu_j$ converges.
+\begin{exercise}{2.4}
+    Let $\F_1, \F_2, \ldots$ be classes of sets in a common space $\Om$.
+    \begin{enumerate}
+        \item Suppose that $\F_n$ are fields satisfying $\F_n \seq \F_{n+1}$. Show that $\bigcup_{n} \F_n$ is a field.
+        \item Suppose that $\F_n$ are $\sigma$-fields satisfying $\F_n \seq \F_{n+1}$. Show that $\bigcup_{n} F_n$ need not be a $\sigma-$field.
+    \end{enumerate}
 \end{exercise}
 \begin{proof}
-    Suppose that $\mu_j$ is defined as in the question. Let
-    \[ d(x, y) = \Sum_{j=1}^{\infty} \mu_j \frac{ |x_j - y_j| }{1 + |x_j - y_j| },  \]
-    Using the fact (proven in 1.2-1) that
-    \[ \frac{|x_j - y_j|}{1 + |x_j - y_j|} \leq \frac{|x_j - z_j|}{1 + |x_j - z_j|}  + \frac{|z_j - y_j|}{1 + |z_j - y_j|},   \]
-    then multiplying by $\mu_j$ we have,
-    \[ \mu_j \frac{|x_j - y_j|}{1 + |x_j - y_j|} \leq \mu_j \frac{|x_j - z_j|}{1 + |x_j - z_j|}  + \mu_j \frac{|z_j - y_j|}{1 + |z_j - y_j|},  \]
-    Taking the sum of both sides with respect to $j$ and noting that all series converge by the comparison test:
-    \[ \sum_{j} \mu_j \frac{|x_j - y_j|}{1 + |x_j - y_j|} \leq \sum_{j} \mu_j < \infty  \]
-    It follows that
-    \[ d(x, y) \leq d(x, z) + d(z, y). \]
+    \begin{enumerate}
+        \item Let $\F = \bigcup_{n} \F_n$. Then,
+        \begin{enumerate}
+            \item Since $\Om \in \F_n$ and $\es \in \F_n$ for all $n$, we have $\Om \in \F$.
+            \item Let $A \in \F$, then $A \in \F_n$ for some $n \in \N$, then $A^{c} \in \F_n$ and hence $A \in \F$.
+            \item Let $A, B \in \F$, suppose that $A \in \F_n$ and that $B \in \F_m$ and that $n \leq m$, then because $\F_n \seq \F_{n+1} \cdots \seq\F_m $ it follows that $A, B \in \F_n$, hence $A \un B \in \F_n$ and as such $A \un B \in \F$.
+        \end{enumerate}
+        \item Let $\Om = \N$, let $A_n = \mc P (\{ 1, \ldots, n \})$ and define,
+        \[ \F_n = A_n \un \{ \es, \N \} \un \{ X \seq \N \mid X = \N - Y \text { for some } Y \in A_n\}  \]
+        It is straightforward to prove by induction on $n$ that each $\F_n$ is a $\sigma$-field and that $\F_n \seq \F_{n+1}$. Let $\F = \bigcup_{n} F_n$, then $\F$ is a countable union of countable sets and as such is countable, but this is a contradiction to Exercise 2.12. Note that the field in question $\F$ is a countably infinite field by Part (1) of this exercise yet it is not a $\sigma$-field.
+    \end{enumerate}
 \end{proof}
 
-\begin{exercise}{1.2.2}
-    Using (6) show that the geometric mean of two positive numbers does not exceed the arithmetic mean.
+\begin{exercise}{2.5}
+    The field $f (\A)$ generated by a class $\A$ in $\Om$ is defined as the intersection of all fields in $\Om$ containing $\A$.
+    \begin{enumerate}
+        \item Show that $f(\A)$ is a field, that $\A \seq f(\A)$ and that $f(\A)$ is minimal in the sense that if $\G$ is a field and $\A \seq \G$, then $f(\A) \seq G$.
+        \item Show that for nonempty $\A$, $f(\A)$ is the class of sets of the form $\bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij}$ where for each $i$ and $j$ either $A_{ij} \in \A$ or $A_{ij}^{c} \in \A$, and where the $m$ sets $\bigcap_{j=1}^{n_j} A_{ij}$, $1 \leq i \leq m$, are disjoint.
+    \end{enumerate}
 \end{exercise}
 \begin{proof}
-    Take $p = q = 2$, then $\frac{1}{p} + \frac{1}{q} =1$ and we can apply (6): let $\alpha, \beta \in [0, \infty)$. Then,
-    \[ \alpha \beta \leq \frac{\alpha^2}{2} + \frac{\beta^2}{2}   \rightarrow \frac{\alpha \beta}{2} \leq \frac{\alpha^2}{2} + \frac{\beta^2}{2} + \frac{\alpha \beta}{2} = \left ( \frac{\alpha + \beta}{2} \right)^2    \]
-    Taking the square root of both sides yields the AM-GM inequality.
+    \begin{enumerate}
+        \item That $f(\A)$ is minimal is straightforward from the definition. To see that it is a field,
+        \begin{enumerate}
+            \item Let $\F$ be any field containing $\A$, then $\Om \in \F$ and $\es \in \F$ imply $\Om \in f(\A)$ and $\es \in f(\A)$.
+            \item Suppose that $A \in f(\A)$, then $A \in \F$ for all fields $\F$ containing $\A$, hence $A^{c} \in \F$ for all fields containing and therefore $A^{c} \in f(\A)$.
+            \item If $A, B \in f(\A)$, then $A \un B \in f(\A)$ by a similar argument to (b).
+        \end{enumerate}
+        \item Let 
+        \[ \G = \left \{ \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} : A_{ij} \in \A \text { or } A_{ij}^{c} \in \A, \text { and } m \geq 0, n_i \geq 0 \right \} \]
+        First we prove that $\G$ is a field for nonempty $\A$,
+        \begin{enumerate}
+            \item Let $A_{11} \in \A$, taking $m=2$, $n_1 = n_2 = 1$ and $A_{21} = \Om - A_{11}$ we have
+            \[ \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} = (A_{11}) \un (\Om - A_{11}) = \Om \]
+            Hence $\Om \in \G$. Taking $m=1$, $n_1 = 2$ with $A_{11}$ and $A_{12} = \Om - A_{11}$ yields $\es \in \G$.
+            \item Let $A \in \G$ and $B \in \G$, then
+            \[ A = \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} \text { and } B = \bigcup_{i=1}^{s} \bigcap_{j=1}^{t_i} B_{ij} \]
+            Suppose without loss of generality that $m \geq s$, then let $C_{i,j} = A_{i,j}$ if $1 \leq i \leq m$ and $1 \leq j \leq n_j$, and let $C_{i, j+n_j} = B_{i, j}$ if $1 \leq i \leq s$ and $1 \leq j \leq n_j$, and let $v_i = n_i + t_i$ if $1 \leq i \leq s$ and $v_i = n_i$ otherwise, then 
+            \[ C = \bigcup_{i=1}^{m} \bigcap_{j=1}^{v_i} C_{ij} = A \ic B \]
+            with the $m$ sets $(\bigcap_{j=1}^{v_i} C_{ij}$ obviously disjoint. It follows that $C \in \G$ and hence $A \ic B \in \G$ if $A, B \in \G$.
+            \item Suppose that $A \in \G$, then there exist $A_{ij}$ such that
+            \[ A = \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij}  \longrightarrow A^{c} = \bigcap_{i=1}^{m} \bigcup_{j=1}^{n_i} A_{ij}^{c} \]
+            Take $B_{i} = \bigcup_{j=1}^{n_i} A_{ij}^{c}$, note that either $A_{ij} \in \A$, in which case $(A_{ij}^{c})^c \in \A$ or $A_{ij}^{c} \in \A$, it follows that $B_i \in \G$ (with $m = 1$) for $1 \leq i \leq m$. Now we invoke part (b) (and induction) to conclude that
+            \[ A^{c} = \left (B_1 \ic B_2 \ic \cdots \ic B_m \right) \in \G \] 
+            \item Finally, let $A, B \in \G$, then
+            \[ A \un B = (A^{c} \ic B^{c})^{c} \in \G \]
+            Hence $A \un B \in \G$ if $A, B \in \G$, and therefore $\G$ is a field.
+        \end{enumerate}
+        It follows that $\G$ is a field such that $A \seq \G$, therefore $f(\A) \seq \G$. To see that $\G \seq f(\A)$, let $X \in \G$, then
+        \[ X = \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} \]
+        where either $A_{ij} \in \A$ or $A_{ij} \in \A^{c}$, note that each $A_{ij} \in f(\A)$ (since each singleton $A_{ij} \in \A \seq f(\A)$ or $A_{ij}^{c} \in \A$, hence $A_{ij}^{c} \in f(\A)$ and therefore $A_{ij} \in f(\A)$ since $f(\A)$ is closed under complements). Then $X$ is a finite union over finite intersections of sets in $f(\A)$, and is therefore in $f(\A)$ because $f(\A)$ is a field. It follows that $\G \seq f(\A)$, as required. 
+    \end{enumerate}
 \end{proof}
 
-\begin{exercise}{1.2.3}
-    Show that the Cauchy-Shwarz inequality (11) implies
-    \[ (|x_1| + \ldots + |x_n|)^2 \leq n(|x_1|^2 + \ldots + |x_n|^2) \]
-\end{exercise}
-\begin{proof}
-    By the Cacuhy-Shwarz inequality,
-    \[ (|x_1| + \ldots + |x_n|)^2  = \left (\sum_{j=1}^{n} |x_j \cdot 1| \right)^2 \leq \left (\sum_{j=1}^{n} |x_j|^2 \right) \left ( \sum_{j=1}^{n} |1|^{2} \right) = n \left (\sum_{j=1}^{n} |x_j|^2 \right).  \]
-\end{proof}
-
-\begin{exercise}{1.2.4}
-    Find a sequence which converges to $0$, but is not in any space $l^p$ where $1 \leq p < +\infty$.
-\end{exercise}
-\begin{proof}
-    Let $x_n = \frac{1}{\ln (n+1)}$ for all $n \in \N$. Note that $\Lim_{n \to \infty} \frac{n^{\frac{1}{p}}}{\ln (n+1)} = \infty$, hence there is some $N \in \N$ such that $\frac{n^{\frac{1}{p}}}{\ln (n+1)} > 1$ for all $n \in \N$ such that $n \geq N$, hence 
-    \[ n^{\frac{1}{p}} > \ln (n+1) \Rightarrow n > (\ln (n+1))^{p} \Rightarrow \frac{1}{(\ln (n+1))^{p}} > \frac{1}{n}   \]
-    It follows that,
-    \[ \sum_{n=N}^{\infty} |x_n|^{p} = \sum_{n=N}^{\infty} \frac{1}{(\ln(n+1))^{p}} > \sum_{n=N}^{\infty} \frac{1}{n} = \infty \]
-    It follows that $\sum_{n=1}^{\infty} |x_n|^{p} $ diverges.
-\end{proof}
-
-\begin{exercise}{1.2.5}
-    Find a sequence $x$ which is in $l^{p}$ with $p > 1$ but $x \notin l^{1}$.
-\end{exercise}
-\begin{proof}
-    Let $x_n = \frac{1}{n}$ for all $n \in \N$. It's well-known that the harmonic series diverges, hence $x \notin l^{1}$. Note that,
-    \[ \sum_{n=1}^{\infty} \left | \frac{1}{n} \right|^{p} = \sum_{n=1}^{\infty} \frac{1}{n^{p}}   \]
-    Let $p \in (1, \infty)$. Define $f(x) = \frac{1}{x^{p}}$ for all $x \in [1, \infty)$. Then,
-    \[ \int_{1}^{\infty} f(x) \dif x = \int_1^{\infty} \frac{1}{x^p} \dif x = \left [ \frac{x^{-p+1}}{1-p} \right ]_{1}^{\infty} = \frac{1}{p-1} < \infty,   \]
-    Hence by the integral test this sum converges.
-\end{proof}
-
-\begin{exercise}{1.2.6}
-    The diameter $\de(A)$ of a nonempty set $A$ in a metric space $(X, d)$ is defined to be
-    \[ \de (A) = \sup_{x, y \in A} d(x, y) \]
-    A is said to be bounded if $\de(A) < \infty$. Show that $A \seq B$ implies $\de A \leq \de B$.
-\end{exercise}
-\begin{proof}
-    If $x, y \in A$ then $x, y \in B$, hence $\sup_{x, y \in A} d(x, y) \leq \sup_{x, y \in B} d(x, y)$, and the claim follows directly.
-\end{proof}
-
-\begin{exercise}{1.2.7}
-    Show that $\de A = 0$ if and only if $A$ consists of a single point.
-\end{exercise}
-\begin{proof}
-    Suppose that $\de A = 0$, then $d(x, y) \leq 0$ for all $x, y \in A$, but $d(x, y) \geq 0$ by the definition of a metric, hence $d(x, y) = 0$ for all $x, y \in A$ and by the definition of a metric again we have $x = y$ for all $x, y \in A$, hence $A$ has a single element.
-\end{proof}
-
-\begin{exercise}{1.2.8}
-    The distance $D(A, B)$ between two nonempty sets $A$ and $B$ of a metric space $(X, d)$ is defined to be
-    \[ D(A, B) = \inf_{a \in A, b \in B} d(a, b). \]
-    Show that $D$ does not define a metric on the power set of $X$. (For this reason we use another symbol, $D$, but one that still reminds us of $d$.)
-\end{exercise}
-\begin{proof}
-    $D$ is not defined on $\es \in \mc P$, hence $D$ is not even a function on the the power set of $X$. See 1.2.9 as well. We have $D(A, B) = 0$ while $A \neq B$.
-\end{proof}
-
-
-\begin{exercise}{1.2.9}
-    If $A \ic B \neq \es$, show that $D(A, B) = 0$ in Prob. 8. What about the converse?
-\end{exercise}
-\begin{proof}
-    Let $c \in A \ic B$, we have $d(c, c) = 0$ with $c \in A$ and $c \in B$, since $d(x, y) \geq 0$ for all $x, y$ it follows that $\inf_{a \in A, b \in B} d(a, b) = d(c, c) = 0$. The converse is not true. Let $X = \R$ and $d(x, y) = |x-y|$. Let $A = (0, \infty)$ and $B = (-\infty, 0)$. We see that $A \ic B = \es$. Let $\e > 0$, then let $\de = \frac{\e}{4}$ and suppose that $a \in (0, \de)$ and $b \in (-\de, 0)$, then $a \in A$ and $b \in B$ and,
-    \[ d(a, b) = |a-b| \leq |a| + |b| = 2 \de = \frac{\e}{2} < \e,   \]
-    Hence for every $\e > 0$ there is some $a, b \in A, B$ such that $d(a, b) < \e$, and since $d(a, b) \geq 0$ it follows that $\inf_{a \in A, \\ b \in B} d(a, b) = 0$.
-\end{proof}
-
-\begin{exercise}{1.2.10}
-    The distance $D(x, B)$ from a point $x$ to a non-empty subset $B$ of $(X, d)$ is defined to be
-    \[ D(x, B) = \inf_{b \in B} d(x, b) \]
-    in agreement with Prob. 8. Show that for any $x, y \in X$,
-    \[ |D(x, B) - D(y, B)| \leq d(x, y). \]
-\end{exercise}
-\begin{proof}
-    By the triangle inequality,
-    \begin{align*}
-        D(x, B) &= \inf_{b \in B} d(x, b) \leq \inf_{b \in B} (d(x, y) + d(y, b)) \\
-        &= d(x, y) + \inf_{b \in B} d(y, b) = d(x, y) + D(y, B) \\
-        D(x, B) - D(y, B) &\leq d(x, y)
-    \end{align*}
-    Exchanging $x$ and $y$ (which are arbitrary) we see
-    \[ D(y, B) - D(x, B) \leq d(y, x) = d(x, y), \]
-    and the claim follows.
-\end{proof}
-
-\begin{exercise}{1.2.11}
-    If $(X, d)$ is any metric space, show that another metric on $X$ is defined by,
-    \[ \tilde{d} (x, y) = \frac{d(x, y)}{1 + d(x, y)}  \]
-    and $X$ is bounded in the metric $\tilde{d}$.
-\end{exercise}
-\begin{proof}
-    (M1)-(M3) follow directly because $d(x, y)$ is a metric. Boundedness follows because $\tilde{d(x, y}) < 1$ for all $x, y \in X$. Let $f: \R^{+} \to \R$ be defined by $f(t) = \frac{t}{1+t}$. Note that $f$ is increasing. Let $a, b \in \R$, then since $|a+b| \leq |a| + |b|$ we have $f(|a+b|) \leq f(|a| + |b|)$. Then,
-    \begin{align*}
-        f(|a| + |b|) &= \frac{|a| + |b|}{1 + |a| + |b|} = \frac{|a|}{1 + |a| +|b|} + \frac{|b|}{1 + |a| + |b|} \\
-        &\leq \frac{|a|}{1 + |a|} + \frac{|b|}{1 + |b|} = f(|a|) + f(|b|)
-    \end{align*}
-    Hence, $f(|a+b|) \leq f(|a| + |b|) \leq f(|a|) + f(|b|)$. $|x-y| = |x-z + z-y|$. Letting $a = d(x, z)$ and $b = d(z, y)$ we get
-    \[ f(d(x, z) + d(z, y)) \leq f(d(x, z)) + f(d(z, y)).\]
-    Now since $d(x, y) \leq d(x, z) + d(z, y)$ it follows that
-    \[ \tilde{d}(x, y) = f(d(x, y)) \leq f(d(x, z)) + d(z, y) \leq f(d(x, z)) + f(d(z, y)) = \tilde{d} (x, z) + \tilde{d} (z, y). \]
-\end{proof}
-
-\begin{exercise}{1.2.12}
-    Show that the union of two bounded sets in a metric space is a bounded set. (Definition in Prob. 6)
-\end{exercise}
-\begin{proof}
-    Let $A, B$ be two bounded sets in a metric space. Let $C = A \un B$. Let $x, y \in C$. If $x, y \in A$ then $d(x, y)$ is bounded above by $\de(A)$ and similarly if $x, y \in B$ then $d(x, y)$ is bounded above by $\de B$. Suppose that $x \in A$ and $y \in B$, let $a \in A$ and $b \in B$,
-    \[ d(x, y) \leq d(x, a) + d(a, y) \leq d(x, a) + d(a, b) + d(b, y) \leq \de A + d(a, b) + \de B \]
-    It follows that $\de A + d(a, b) + \de B$ is an upper bound of $\{ d(x, y) \mid x, y \in C \}$ and hence $\de C = \sup_{x, y \in C} d(x, y) \leq \de A + d(a, b) + \de B$ and we get that $C$ is bounded in the metric space $(X, d)$.
-\end{proof}
-
-\begin{exercise}{1.2.13}
-    (Product of metric spaces) The Cartesian product $X = X_1 \times X_2$ of two metric spaces $(X_1, d_1)$ and $(X, d_2)$ can be made into a metric space $(X, d)$ in many ways. For instance, show that a metric d is defined by
-    \[ d(x, y) = d_1 (x_1, y_1) + d_2 (x_2, y_2) \]
-    where $x = (x_1, x_2)$ and $y = (y_1, y_2)$.
-\end{exercise}
-\begin{proof}
-    (M1)-(M3) are trivial. To prove the triangle inequality let $z = (z_1, z_2)$, then
-    \begin{align*}
-        d(x, y) = d_1 (x_1, y_1) + d_2 (x_2, y_2) &\leq d_1 (x_1, z_1) + d(z_1, y_1) + d_2 (x_2, z_2) + d(z_2, y_2) \\
-        &= d_1 (x_1, z_1) + d_2 (x_1, z_2) + d(z_1, y_1) + d(z_2, y_2) \\
-        &= d(x, z) + d(y, z).
-    \end{align*}
-\end{proof}
-
-\begin{exercise}{1.2.14}
-    Show that another metric on $X$ in Prob. 13 is defined by
-    \[ \tilde{d} (x, y) = \sqrt{d_1 (x_1, y_2)^2 + d_2 (x_2, y_2)^2} \]
-\end{exercise}
-\begin{proof}
-    (M1)-(M3) are trivial. (M4) follows in a straight-forward way from the Cauchy-Schwarz inequality.
-\end{proof}
-
-\begin{exercise}{1.2.15}
-    Show that a third metric on $X$ in Prob. 13 is defined by
-    \[ \dbtilde{d} (x, y) = \max [ d_1 (x_1, y_1), d_2 (x_2, y_2) ]. \]
-\end{exercise}
-\begin{proof}
-    (M1)-(M3) are trivial. To prove (M4) note that,
-    \begin{align*}
-        d_1 (x_1, y_1) &\leq d_1 (x_1, z_1) + d_1 (z_1, y_1) \\
-        &\leq \max [ d_1 (x_1, z_1), d_2 (x_2, z_2) ] + \max [ d_1 (z_1, y_1), d_2 (z_2, y_2) ] \\
-        d_2 (x_2, y_2) &\leq d_2 (x_2, z_2) + d_2 (z_2, u_2) \\
-        &\leq \max [ d_1 (x_1, z_1), d_2 (x_2, z_2) ] + \max [ d_1 (z_1, y_1), d_2 (z_2, y_2) ]
-    \end{align*}
-    It follows that,
-    \begin{align*}
-        \max [ d_1 (x_1, y_1), d_2 (x_2, y_2) ] &\leq \max [ d_1 (x_1, z_1), d_2 (x_2, z_2) ] + \max [ d_1 (z_1, y_1), d_2 (z_2, y_2) ] \\
-        &= \dbtilde{d}(x, z) + \dbtilde{d} (z, y).
-    \end{align*}
-
-\end{proof}
 
 
 
