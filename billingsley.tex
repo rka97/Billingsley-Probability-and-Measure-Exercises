@@ -330,7 +330,10 @@
             \item If $A, B \in f(\A)$, then $A \un B \in f(\A)$ by a similar argument to (b).
         \end{enumerate}
         \item Let 
-        \[ \G = \left \{ \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} : A_{ij} \in \A \text { or } A_{ij}^{c} \in \A, \text { and } m \geq 0, n_i \geq 0 \right \} \]
+        \begin{align*}
+            \G = \Big \{ \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} : & A_{ij} \in \A \text { or } A_{ij}^{c} \in \A, m \geq 0, n_i \geq 0, \\
+            & \text { and the }  \bigcap_{j=1}^{n_i} A_{ij} \text { are disjoint} \Big \}
+        \end{align*}
         First we prove that $\G$ is a field for nonempty $\A$,
         \begin{enumerate}
             \item Let $A_{11} \in \A$, taking $m=2$, $n_1 = n_2 = 1$ and $A_{21} = \Om - A_{11}$ we have
@@ -340,7 +343,7 @@
             \[ A = \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} \text { and } B = \bigcup_{i=1}^{s} \bigcap_{j=1}^{t_i} B_{ij} \]
             Suppose without loss of generality that $m \geq s$, then let $C_{i,j} = A_{i,j}$ if $1 \leq i \leq m$ and $1 \leq j \leq n_j$, and let $C_{i, j+n_j} = B_{i, j}$ if $1 \leq i \leq s$ and $1 \leq j \leq n_j$, and let $v_i = n_i + t_i$ if $1 \leq i \leq s$ and $v_i = n_i$ otherwise, then 
             \[ C = \bigcup_{i=1}^{m} \bigcap_{j=1}^{v_i} C_{ij} = A \ic B \]
-            with the $m$ sets $(\bigcap_{j=1}^{v_i} C_{ij}$ obviously disjoint. It follows that $C \in \G$ and hence $A \ic B \in \G$ if $A, B \in \G$.
+            with the $m$ sets $\bigcap_{j=1}^{v_i} C_{ij}$ obviously disjoint. It follows that $C \in \G$ and hence $A \ic B \in \G$ if $A, B \in \G$.
             \item Suppose that $A \in \G$, then there exist $A_{ij}$ such that
             \[ A = \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij}  \longrightarrow A^{c} = \bigcap_{i=1}^{m} \bigcup_{j=1}^{n_i} A_{ij}^{c} \]
             Take $B_{i} = \bigcup_{j=1}^{n_i} A_{ij}^{c}$, note that either $A_{ij} \in \A$, in which case $(A_{ij}^{c})^c \in \A$ or $A_{ij}^{c} \in \A$, it follows that $B_i \in \G$ (with $m = 1$) for $1 \leq i \leq m$. Now we invoke part (b) (and induction) to conclude that
@@ -355,7 +358,125 @@
     \end{enumerate}
 \end{proof}
 
+\begin{exercise}{2.6}
+    \begin{enumerate}
+        \item Show that if $\A$ consists of the singletons, then $f(\A)$ is the field in Example 2.3. From Example 2.3: $\F$ is the set of all finite and cofinite ($A$ being cofinite if $A^c$ is finite) subsets of $\Om$.
+        \item Show that $f(\A) \seq \sigma (\A)$, that $f(\A) = \sigma (\A)$ if $\A$ is finite, and that $\sigma (f(\A)) = \sigma (\A)$.
+        \item Show that if $\A$ is countable, then $f(\A)$ is countable.
+        \item Show for fields $\F_1$ and $\F_2$ that $f(\F_1 \un \F_2)$ consists of the finite disjoint unions of sets $A_1 \ic A_2$ with $A_i \in \F_i$. Extend.
+    \end{enumerate}
+\end{exercise}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $\F = f(\A)$. Let $X \in \F$, then by Exercise 2.5 
+        \[ X = \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} \]
+        where either $A_{ij} \in \A$ or $A_{ij}^c \in \A$, let $X_i = \bigcap_{j=1}^{n_i} A_{ij}$. Fix $i$, if any $A_{ij} \in \A$ then $X_i$ is at most a singleton, and therefore finite. Suppose that for all $1 \leq j \leq n_i$ we have $A_{ij}^{c} \in \A$, then
+        \[ X_{i} = \bigcap_{j=1}^{n_j} A_{ij} \longrightarrow X_{i}^{c} = \bigcup_{j=1}^{n_j} A_{ij}^{c} \]
+        Note that each of the $A_{ij}^{c}$ is in $\A$ and therefore a singleton, it follows that $X_i^{c}$ is a finite union of singletons and is therefore finite, hence $X_i$ is cofinite. It follows that $X_i$ is either finite or cofinite, if all the $X_i$ are finite then $X$ is finite, otherwise note that
+        \begin{align*}
+            X^{c} &= \bigcap_i X_i^{c} = \left (\bigcap_{X_i \text { finite }} X_i^{c} \right) \bigcap \left (\bigcap_{X_{i} \text { cofinite }} X_i^{c} \right) 
+        \end{align*}
+        Note that the for the cofinite $X_i$, $X_i^{c}$ is finite, hence $X^{c}$ is finite, and therefore $X$ is cofinite. It follows that $X$ is either finite or cofinite, as required.
+        \item If $X \in f(\A)$, then $X$ is a finite union over intersections of sets (or complements of sets) in $\A$, and is therefore in $\sigma (\A)$, hence $f(\A) \seq \sigma (\A)$. \\
+        If $\A$ is finite, then countable unions over elements of $\A$ can always be rewritten as finite unions over elements of $\A$, which are in $f(\A)$, it would then follow that $f(\A) = \sigma (\A)$. \\
+        If $\G$ is a $\sigma$-field containing $f(\A)$, then because $\A \seq f(\A)$ we have that $\G$ is a $\sigma$-field containg $\A$, hence $\sigma (\A) \seq \G$, taking the intersection over all such $\G$'s yields $\sigma (\A) \seq \sigma (f (\A))$, it follows that since $\sigma (f(\A))$ as well we must have $\sigma (f(\A)) = \sigma (\A)$. 
+        \item If $\A$ is countable, then every $X \in f(\A)$ is countable (since $X$ is a finite union over a finite intersection of countable sets), and since $f(\A)$ is a countable union of singletons (each containing one such set) then $f(\A)$ is countable.
+        \item Let $X \in f(\F_1 \un \F_2)$, let $X \in f(\F_1 \un \F_2)$, then
+        \[ X = \bigcup_{i=1}^{m} \bigcap_{j=1}^{n_i} A_{ij} \]
+        with $A_{ij} \in \F_1 \un \F_2$ or $A_{ij}^{c} \in \F_1 \un \F_2$. Note that $A_{ij} \in \F_k$ and $A_{ij}^{c} \in \F_k$ are equivalent for fields, therefore we need only worry about one of them. Let $X_i = \bigcap_{j=1}^{n_i} A_{ij}$ and rewrite it as $X_i = \bigcap_{k=1}^{2} X_{i, k}$ where $X_{i, k} = \bigcap_{j : A_{ij} \in \F_{k} } A_{ij}$, because each of the $X_{i, k}$ is a finite intersection of sets in $\F_k$, then $X_{i, k} \in \F_k$ and hence
+        \[ X = \bigcup_{i=1}^{m} (X_{i, 1} \ic X_{i, 2}) \]
+        where the sets $X_{i, 1} \ic X_{i, 2}$ are all disjoint (because all the $X_i$ are disjoint), as required. The analysis extends directly to any $k \in \N$ such that $k \geq 1$.
+    \end{enumerate}
+\end{proof}
 
+\begin{exercise}{2.7}
+    Let $H$ be a set lying outside $\F$, where $\F$ is a field (or $\sigma$-field). Show that the field (or $\sigma$-field) generated by $\F \un \{ H \}$ consists of sets of the form
+    \[ (H \ic A) \un (H^{c} \ic B), \text { where } A, B \in \F \]
+\end{exercise}
+\begin{proof}
+    Let $\F$ be a $\sigma$-algebra and $H$ be a set lying outside $\F$, define
+    \[ \G = \{ (H \ic A) \un (H^{c} \ic B) \mid A, B \in \F \} \]
+    We first prove that $\G$ is a $\sigma$-algebra.
+    \begin{enumerate}
+        \item $\es = (H \ic \es) \un (H^{c} \ic \es)$ and $\Om = (H \ic \Om) \un (H^{c} \ic \Om)$, hence $\es \in \G$ and $\Om \in \G$.
+        \item Let $X, Y \in \G$ be such that
+        \[ X = (H \ic A_1) \un (H^{c} \ic B_1) \text{ and } Y = (H \ic A_2) \un (H^{c} \ic B_2) \]
+        Then, using boolean indicator notation for simplicity:
+        \begin{align*}
+            X - Y &= X \bar{Y} = (H A_1 + \bar H B_1) (\bar H + \bar A_2) (H + \bar B_2) \\
+            &= H(A_1 \bar A_2 + A_1 \bar A_2 \bar B_2) + \bar H (B_1 \bar B_2 + B_1 \bar A_2 \bar B_2) = H A_1 \bar A_2 + \bar H B_1 \bar B_2 \\
+            &= (H \ic (A_1 - A_2)) \un (H^{c} \ic (B_1 - B_2)) \in \G
+        \end{align*}
+        Because $A_1 - A_2 \in \F$ and $B-1 - B_2 \in \F$, we have $X - Y \in \G$. As a special case, we have $X^{c} = \Om - X \in \G$.
+        \item Let $(X_i) \in \G$ and suppose that $X_i = H A_i + \bar H B_i$ for all $i \in \N$, then
+        \begin{align*}
+            \bigcup_{i=1}^{\infty} X_i &= \Sum_{i=1}^{\infty} X_i = \Sum_{i=1}^{\infty} (H A_i + \bar H B_i) = H \Sum_{i} A_i + \bar H \Sum_{i} B_i \\
+            &= H \left ( \bigcup_{i=1}^{\infty} A_i \right) + \bar{H} \left ( \bigcup_{i=1}^{\infty} B_i \right)
+        \end{align*}
+        Because $\F$ is a $\sigma$-field, then $\left ( \bigcup_{i=1}^{\infty} A_i \right) \in \F$ and $\left ( \bigcup_{i=1}^{\infty} G_i \right) \in \F$, hence $\left ( \bigcup_{i=1}^{\infty} X_i \right) \in \G$, as required.
+    \end{enumerate}
+    It follows that $\sigma(\F \un \{ H \}) \seq \G$. Let $X \in \G$, then $X = (H \ic A) \un (H^{c} \ic B)$ for $A, B \in \F$, noticing that $A, B, H, H^{c} \in \sigma (\F \un \{ H \})$, it follows that $X \in \sigma (F \un \{ H \})$, and because $X$ was arbitrary we have $\G \seq \sigma (\F \un \{ H \})$ and therefore $G = \sigma (\F \un \{ H \})$, as required. A similar proof works when $\F$ is an algebra (there is in fact an easier proof for that case using Exercise 2.6).
+\end{proof}
+
+\begin{exercise}{2.8}
+    Suppose for each $A \in \A$ that $A^{c}$ is a countable union of elements of $\A$. The class of intervals in $(0, 1]$ has this property. Show that $\sigma (\A)$ coincides with the smallest class over $\A$ that is closed under the formation of countable unions and intersections.
+\end{exercise}
+\begin{proof}
+    Let $\G$ be closed under the formation of countable unions and intersections and $\A \seq \G$, then
+    \begin{enumerate}
+        \item Let $A \in \A$, then $A^{c}$ is a countable union of elements of $\A$, and hence $A^{c} \in \G$.
+        \item Let $A \in \A$, then $\es = A \ic A^{c}$ implies $\es \in \G$ and $\Om = A \un A^{c}$ implies $\Om \in \G$.
+        \item $\G$ is closed under countable unions by definition.
+    \end{enumerate}
+    Hence $\G$ is a $\sigma$-algebra, and it follows that $\sigma (\A) \seq \G$, let $s(\A)$ denote the intersection of all such sets $\G$, then $\sigma (\A) \seq s(\A)$. Let $\F$ be a $\sigma$-algebra such that $\A \seq \F$, then $\F$ is closed under countable unions and intersections over $\A$, hence $s(\A) \seq \F$, and because $\F$ was arbtirary we have $s(\A) \seq \sigma(\A)$. It follows that $\sigma (\A) = s(\A)$, as required.
+\end{proof}
+
+\begin{exercise}{2.9}
+    Show that, if $B \in \sigma (\A)$, then there exists a countable subclass $\A_{B}$ of $\A$ such that $B \in \sigma (\A_{B})$.
+\end{exercise}
+\begin{proof}
+    Define
+    \[ \G = \{ B \in \sigma (\A) : \text{ There exists a countable subclass } \A_{B} \text { of } \A \text { with } B \in \sigma (\A_B) \} \]
+    We first show that $\G$ is a sigma algebra:
+    \begin{enumerate}
+        \item Choose any sequence $A_1, A_2, \ldots \in \A$, let $\A_{A} = \{ A_1, A_2, \ldots \}$, then $\A_{A}$ is a countable subclass of sets in $\A$, and $\es \in \sigma (\A_A)$ and $\Om \in \sigma (\A_A)$, hence $\es \in \G$ and $\Om \in \G$.
+        \item Let $B \in \G$, then there is a countable subclass $\A_B$ of $\A$ with $B \in \sigma (\A_B)$, since $B^{c} \in \sigma (\A_B)$ as well, it follows that $B^{c} \in \G$.
+        \item Suppose that $B_1, B_2, \ldots$ is a sequence of sets in $\G$. Then there exists a sequence $\A_{B_1}, \A_{B_2}, \ldots$ of countable subclasses of $\A$ with $B_i \in \sigma (\A_{B_i})$ for $i \geq 1$. Let $\A_{B} = \bigcup_{i=1}^{\infty} \A_{B_i}$, and note that $\A_B$ is a countable union of countable sets, and is therefore a countable subclass of sets in $\A$. Since $B_1, B_2, \ldots$ are all in $\A_B$, it follows that $\bigcup_{i=1}^{\infty} B_i \in \sigma (\A_B)$, and because $\A_B$ has been proven countable we have $\bigcup_{i=1}^{\infty} B_i \in \G$.
+    \end{enumerate}
+    Since $\G$ is a $\sigma$-algebra with $\A \seq \G$, it follows that $\sigma (\A) \seq \G$, but from the definition of $\G$ we have $\G \seq \sigma (\A)$, hence $\G = \sigma (\A)$, which proves what we want.
+\end{proof}
+
+\begin{exercise}{2.10}
+    \begin{enumerate}
+        \item Show that if $\sigma (\A)$ contains every subset of $\Omega$, then for each pair $\om$ and $\om'$ of distinct points in $\Om$ there is in $\A$ an $A$ such that $I_A (\om) \neq I_A (\om')$.
+        \item Show that the reverse implication holds if $\Om$ is countable.
+        \item Show by example that the reverse implication need not hold for uncountable $\Om$.
+    \end{enumerate}
+\end{exercise}
+\begin{proof}
+    \begin{enumerate}
+        \item Suppose that there is a pair of points $\om$ and $\om'$ of distinct points in $\Om$ such that $I_{A} (\om) = I_{A} (\om')$ for all $A \in \A$. Define 
+        \[ \G = \{ B \in \sigma (\A): I_{B} (\om) = I_{B} (\om') \} \]
+        We prove that $\G$ is a $\sigma$-algebra
+        \begin{enumerate}
+            \item $\om \notin \es$ and $\om' \not\in \es$, hence $\es \in \G$. $\om \in \Om$ and $\om' \in \Om$, hence $\Om \in \G$.
+            \item Suppose that $B \in \G$, then $I_B (\om) = I_B (\om')$ and hence 
+            \[ I_{B^c} (\om) = 1 - I_{B} (\om) = 1 - I_B (\om') = I_{B^c} (\om') \]
+            It follows that $B^{c} \in \G$.
+            \item Suppose that $B_{1}, B_{2}, \ldots$ is a sequence of sets in $\G$. Let $B = \bigcup_{i} B_i$, obviously $B \in \sigma (\A)$. If there is some $B_{i}$ such that $\om \in B_i$, then $\om' \in B_i$ and hence $\om \in B$ and $\om' \in B$, therefore $I_B (\om) = I_B (\om')$. If not, then for all $B_{i}$ we have $I_{B_i} (\om) = I_{B_i} (\om') = 0$ then $\om \notin B_{i}$ for all $i \in \N$, hence $\om \notin B$ and similarly $\om' B$, and we see that in both cases we have $I_B (\om) = I_B (\om')$, therefore $B \in \G$.
+        \end{enumerate}
+        Hence $\G$ is a $\sigma$-algebra, and clearly $\G$ contains $\A$ (since we assume that $I_A (\om) = I_A (\om')$ for all $A \in \A$ and for any such $A$ we have $A \in \sigma(\A)$), it follows that $\sigma (\A) \seq \G$, but $\G \seq \sigma (\A)$, hence $\G = \sigma (\A)$, but this is a contradiction since 
+        \[ \{ \om \} \notin \G \text { yet } \{ \om \} \in \mc P (\Om), \]
+        It follows that there can be no such pair of points.
+        \item Suppose that $\Om$ is countable. Let $\om \in \Om$, produce an enumeration $\om_1, \om_2, \ldots$ of elements in $\Om - \{ \om \}$ (which is also countable). Define $B_{i}$ to be a set such that $I_{B_i} (\om_i) \neq I_{B_i} (\om)$ for all $i \geq 2$. If $\om \in B_i$ let $A_i = B_i$, then $\om \in B_i$ and $\om_i \notin B_i$, If $\om \notin B_i$, let $A_i = B_i^{c}$, then $\om \in A_i$ and $\om_i \notin A_i$. We see that for each $A_{i}$ we have $\om \in A_i$ and $\om_i \notin A_i$, hence
+        \[ \bigcap_{i=1}^{n} A_i = \{ \om \} \]
+        Noticing that each $A_i \in \sigma (\A)$ we see that $\{ \om \} \in \sigma (\A)$, and because $\om$ was arbitrary we see that $\sigma (\A)$ includes all the singletons and hence includes any subset of $\Om$, since any such subset is a countable union of singletons in $\sigma (\A)$. 
+        \item Let $\Om = [0, 1)$. Find an $\A$ such that for each pair $\om$ and $\om'$ of distinct points in $\Om$ there is an $A \in \A$ such that $I_A (\om) \neq I_A (\om')$ but that $\sigma (\A)$ does not contain every subset of $\Om$. Let 
+        \[ \A = \left \{ \left [a, \frac{1}{n} \right] : 0 \leq a \leq \frac{1}{n} \text { and } n \in \N \right \} \]
+        Define
+        \[ \G = \{ B \in \sigma (\A) \mid \} \]
+    \end{enumerate}
+\end{proof}
 
 
 
