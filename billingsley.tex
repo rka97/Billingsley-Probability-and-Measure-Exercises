@@ -6,7 +6,7 @@
 \setcounter{secnumdepth}{0}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb,mathtools,graphicx,enumitem,hyphenat,float}
-\usepackage{accents, mathabx}
+\usepackage{accents}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \newcommand{\dbtilde}[1]{\accentset{\approx}{#1}}
 \newcommand{\N}{\mathbb{N}}
@@ -148,9 +148,15 @@
 \begin{rmrk}{3}
     $\sigma \mc A$ satisfies:
     \begin{enumerate}
+<<<<<<< HEAD
         \item $\A \in \sigma(\A)$.
         \item $\sigma(\A)$ is a sigma-field
         \item If $\A \in \mc G$ and $\mc G$ is a $\sigma$-field, then $\sigma(\A) \seq \mc G$.
+=======
+        \item $\A \seq \sigma(\A)$.
+        \item $\sigma(A)$ is a sigma-field
+        \item If $\A \seq \mc G$ and $\mc G$ is a $\sigma$-field, then $\sigma (\A) \seq \mc G$.
+>>>>>>> 5b3c5e9bee5fed6ff8db7b92300746173630d6ae
     \end{enumerate}
 \end{rmrk}
 
