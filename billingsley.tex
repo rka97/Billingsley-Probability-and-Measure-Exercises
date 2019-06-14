@@ -476,6 +476,25 @@
         Define
         \[ \G = \{ B \in \sigma (\A) \mid \} \]
     \end{enumerate}
+    
+    We'd like to prove that
+    \[ \sum_{k} (g(k) - \theta)^2 p(k; \theta) \geq \frac{1}{I(\theta)} \]
+    Let $u_k = \frac{p_{\theta} (k; \theta)}{p(k; \theta)}$, then equivalently we need to prove that
+    \[ \left (\sum_{k} (g(k) - \theta)^2 p(k; \theta) \right ) \left (\sum_k u_k^2 p(k; \theta) \right ) \geq 1 \]
+    By the Cauchy-Schwarz inequality,
+    \begin{align*}
+        \left (\sum_{k} (g(k) - \theta)^2 p(k; \theta) \right ) \left (\sum_k u_k^2 p(k; \theta) \right ) \geq \left (\sum_{k} (g(k) - \theta) u_k p(k; \theta) \right)^2
+    \end{align*}
+    Then,
+    \begin{align*}
+        \sum_{k} (g(k) - \theta) u_k p(k; \theta) &= \sum_{k} (g(k) - \theta) p_{\theta} (k; \theta) \\
+        &= \sum_k g(k) p_{\theta} (k; \theta) - \sum_{k} \theta p_{\theta} (k; \theta)
+    \end{align*}
+    Note that since $\sum_k g(k) p(k; \theta) = \theta$ we have $\sum_k g(k) p_\theta (k;\theta) = 1$ and since $\sum_k p(k; \theta) = 1$ we have $\sum_k p_{\theta} (k; \theta) = 0$, plugging this into the right hand side of the last inequality yields
+    \[ \sum_k (g_k - \theta) u_k p(k;\theta) = 1 \]
+    And it follows that 
+    \[ \left (\sum_k (g_k - \theta) u_k p(k; \theta) \right)^2 = 1 \]
+    And this proves our inequality.
 \end{proof}
 
 
